@@ -1,18 +1,21 @@
-exports.sendQuery = (query, connection) => {
-    return new Promise(function (resolve, reject)
-    {
-        if (!connection) {
-            console.log("connection to db failed");
-            return reject("error");
-        }
+const dbConfig = require("../../mySqlConfig.json");
+const mysql = require("mysql2");
+const connection = mysql.createPool(dbConfig);
 
-        results = connection.query(
-            query,
-            function (err, results) {
-                if (err) {
-                    return err;
-                }
-                resolve(results);
-            })
+exports.query = (query) => {
+    return new Promise(function (resolve, reject) {
+        connection.getConnection((err, conn) => {
+            if (err) {
+                console.log(err);
+            } else {
+                conn.query(query, (error, results) => {
+                    if (error) {
+                        console.log(error)
+                    }
+                    conn.release();
+                    resolve(results);
+                });
+            }
+        })
     })
 }
