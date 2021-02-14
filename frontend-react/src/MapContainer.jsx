@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import {Map, GoogleApiWrapper, Marker, InfoWindow} from 'google-maps-react';
+import Modal from "react-bootstrap/Modal";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Menu from "./Menu"
 
 const mapStyles = {
     height: 400,
@@ -13,15 +16,25 @@ class MapContainer extends React.Component {
     state = {
         activeMarker: {},
         selectedVendor: {},
-        showingInfoWindow: false
+        showingInfoWindow: false,
+        showingModal: false
     };
 
-    onMarkerClick = (props, marker) =>
+    showModal = () => {
+        this.setState({ showingModal: !this.state.showingModal })
+    }
+
+
+    onMarkerClick = (props, marker) => {
+        console.log("you clicked on a marker :)");
         this.setState({
             activeMarker: marker,
             selectedVendor: props,
-            showingInfoWindow: true
-        });
+            showingInfoWindow: true,
+            showingModal: true
+        })
+
+    };
 
     onInfoWindowClose = () =>
         this.setState({
@@ -69,6 +82,17 @@ class MapContainer extends React.Component {
                         </div>
                     </InfoWindow>
                 </Map>
+                <button onClick={this.showModal}>Display Modal</button>
+                <Modal show={this.state.showingModal} onHide={this.state.showingModal}>
+                    <Modal.Header>
+                        <Modal.Title>This is going to be a menu!</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body><Menu></Menu></Modal.Body>
+                    <Modal.Footer>
+                        <button onClick={this.showModal}>Cancel</button>
+                        <button onClick={this.showModal}>Save</button>
+                    </Modal.Footer>
+                </Modal>
             </div>
         );
     }
@@ -76,5 +100,5 @@ class MapContainer extends React.Component {
 
 
 export default GoogleApiWrapper({
-    apiKey: 'Your Google API Key goes here!'
+    apiKey: ''
 })(MapContainer);
