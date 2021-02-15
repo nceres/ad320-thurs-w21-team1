@@ -2,10 +2,10 @@ var express = require('express');
 var router = express.Router();
 const queryUtil = require("../db-utils/queryUtil");
 
-
+/* GET home page. */
 router.get('/', function(req, res, next) {
-  // This is just an example of how this will work. We should delete this whole file
-  queryUtil.query("select * from Hotdog").then(result => res.send(result));
+    queryUtil.query("select hotdog_name from Hotdog")
+        .then(result => res.json(result.map(result => result.hotdog_name)));
 });
 
 module.exports = router;
