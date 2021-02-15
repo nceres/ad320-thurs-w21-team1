@@ -175,6 +175,11 @@ CREATE TABLE IF NOT EXISTS `HotdogCart`.`Menu Items` (
 ENGINE = InnoDB;
 
 
+INSERT INTO Hotdog VALUES (null, "Classic", "none");
+INSERT INTO Hotdog VALUES (null, "Seattle dog", "none");
+INSERT INTO Hotdog VALUES (null, "Frankfurter", "none");
+INSERT INTO Hotdog VALUES (null, "Chicago dog", "none");
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

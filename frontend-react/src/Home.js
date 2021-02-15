@@ -8,7 +8,7 @@ class Home extends React.Component {
 
     callBackend() {
         console.log("api called");
-        fetch("http://localhost:4000/users")
+        fetch("/users")
             .then(res => res.text())
             .then(res => this.setState({ apiResponse: res }))
             .catch(err => console.log(err));
