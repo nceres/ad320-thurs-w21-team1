@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `HotdogCart`.`Location` (
   `location_id` INT NOT NULL AUTO_INCREMENT COMMENT 'primary key',
   `name` VARCHAR(45) NULL COMMENT 'location name',
   `address` VARCHAR(45) NOT NULL COMMENT 'location address',
-  `phone` VARCHAR(10) NULL COMMENT 'location phone',
+  `phone` VARCHAR(12) NULL COMMENT 'location phone',
   PRIMARY KEY (`location_id`))
 ENGINE = InnoDB;
 
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `HotdogCart`.`Person` (
   `last_name` VARCHAR(45) NULL COMMENT 'customer last name',
   `address` VARCHAR(100) NULL COMMENT 'customer address',
   `email` VARCHAR(45) NULL COMMENT 'customer email',
-  `phone` VARCHAR(10) NULL COMMENT 'customer phone',
+  `phone` VARCHAR(12) NULL COMMENT 'customer phone',
   `location_id` INT NULL,
   `role_id` INT NULL,
   `hashed_password` VARCHAR(45) NULL,
@@ -198,10 +198,64 @@ CREATE TABLE IF NOT EXISTS `HotdogCart`.`Disabled_Menu_Items` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
+# Hotdog table
 INSERT INTO Hotdog VALUES (null, "Classic", "none");
 INSERT INTO Hotdog VALUES (null, "Seattle dog", "none");
 INSERT INTO Hotdog VALUES (null, "Frankfurter", "none");
 INSERT INTO Hotdog VALUES (null, "Chicago dog", "none");
+INSERT INTO Hotdog VALUES (null, "Corn dog", "none");
+INSERT INTO Hotdog VALUES (null, "Bratwurst", "none");
+INSERT INTO Hotdog VALUES (null, "Montreal dog", "none");
+
+
+# Location table
+INSERT INTO Location VALUES (NULL, "Capitol Hill", "202 E Broadway, Seattle", "206-606-2346");
+INSERT INTO Location VALUES (NULL, "Rainier Brewery", "1119 Airport Way S, Seattle", "206-943-8477");
+INSERT INTO Location VALUES (NULL, "Ballard HotDogs", "359 NW Market St, Seattle", "206-606-2346");
+INSERT INTO Location VALUES (NULL, "NSC", "9600 College Way North, Seattle", "206-934-3600");
+INSERT INTO Location VALUES (NULL, "Pioneer Square", "1 Pioneer Square, Seattle", "206-617-4310");
+
+# Person_Role table
+INSERT INTO Person_Role VALUES (NULL, "Customer");
+INSERT INTO Person_Role VALUES (NULL, "Vendor");
+INSERT INTO Person_Role VALUES (NULL, "Admin");
+
+# Person table
+INSERT INTO Person VALUES (NULL, "John", "Pfiser", "321 36th Pl NE, Seattle", "johnp@comcast.net", "425-733-9024", "5", 1, "password");
+INSERT INTO Person VALUES (NULL, "Michael", "Ashford", "10312 Aurora Ave N, Seattle", "mash@oreilly.com", "206-321-7656", "2", 2, "password");
+INSERT INTO Person VALUES (NULL, "Helen", "Hunt", "1301 4th Ave, Seattle", "hunt@yahoo.com", "509-120-2012", "1", 1, "password");
+INSERT INTO Person VALUES (NULL, "Aaron", "Schwartz", "1498 253rd St, Burien", "AShcwartz@gmail.com", "253-034-1414", "5", 1, "password");
+INSERT INTO Person VALUES (NULL, "Sam", "Zimbabwe", "1104 15th Ave N, Shoreline", "SZ@wsdot.wa.gov", "206-457-4000", "3", 1, "password");
+INSERT INTO Person VALUES (NULL, "Crystal", "Broderick", "208 Main St, Bellevue", "broderick@hotmail.com", "425-900-2348", "4", 3, "password");
+INSERT INTO Person VALUES (NULL, "Marty", "Sheen", "2223 6th Ave W, Seattle", "msheen@gmailcom", "206-399-7602", "1", 1, "password");
+INSERT INTO Person VALUES (NULL, "Lesly", "Blunt", "11343 256th Ave Sw, Kent", "lblunt@outlook.com", "253-113-1003", "4", 2, "password");
+INSERT INTO Person VALUES (NULL, "Nathaniel", "Piletski", "1601 5th Ave N Seattle", "npiletski@mail.com", "206-885-9008", "1", 1, "password");
+INSERT INTO Person VALUES (NULL, "Cathy", "Noel", "11061 248th Ave NE, Redmond", "cnoel@gmail.com", "425-733-9024", "5", 3, "password");
+
+# Permission table
+INSERT INTO Permission VALUES (NULL, "all access");
+
+# Role_Permission table
+INSERT INTO Role_Permission VALUES (NULL, 1, 1);
+INSERT INTO Role_Permission VALUES (NULL, 2, 1);
+INSERT INTO Role_Permission VALUES (NULL, 3, 1);
+
+
+# Order table
+INSERT INTO `Order` VALUES (NULL, "2020-12-31 23:59:00", 5, 3);
+INSERT INTO `Order` VALUES (NULL, "2021-01-11 19:03:01", 2, 9);
+INSERT INTO `Order` VALUES (NULL, "2021-02-13 12:23:45", 1, 4);
+
+# Order_Items table
+INSERT INTO Order_Items VALUES (NULL, 2, 1, 3);
+INSERT INTO Order_Items VALUES (NULL, 2, 1, 3);
+INSERT INTO Order_Items VALUES (NULL, 1, 2, 5);
+INSERT INTO Order_Items VALUES (NULL, 1, 3, 1);
+
+# Disabled_Menu_Items table
+INSERT INTO Disabled_Menu_Items VALUES (2,2, NULL);
+
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
