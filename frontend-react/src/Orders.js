@@ -5,6 +5,8 @@ class Orders extends React.Component {
 
     state = { menuItems: [], disabled_id: 1 }
 
+
+
     componentDidMount() {
         fetch("/orders")
             .then(res => res.json( ) )
@@ -18,12 +20,13 @@ class Orders extends React.Component {
 
         return (
             <div>
+
                 <h1>Orders</h1>
-
+<hr/>
                 {this.state.menuItems.map(menuItem =>
-                        <div key={menuItem.hotdog_id} className="mb-3">
+                        <div key={menuItem.index} className="mb-3">
 
-                                <h6>{menuItem.hotdog_name}</h6>
+                                <h6>{menuItem.Hotdog}</h6>
                                
                         </div>
                 )}
