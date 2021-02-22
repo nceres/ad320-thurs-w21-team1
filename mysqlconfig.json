@@ -1,0 +1,7 @@
+{
+  "user": "root",
+  "schema": "localhost",
+  "password": "password",
+  "database": "hotdogcart",
+  "waitForConnections": true
+}
