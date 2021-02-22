@@ -1,4 +1,4 @@
-const dbConfig = require("../../mySqlConfig.json");
+const dbConfig = require("../../../mySqlConfig.json");
 const mysql = require("mysql2");
 const connection = mysql.createPool(dbConfig);
 
