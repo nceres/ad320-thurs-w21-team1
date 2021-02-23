@@ -10,7 +10,8 @@ exports.query = (query) => {
             } else {
                 conn.query(query, (error, results) => {
                     if (error) {
-                        console.log(error)
+                        console.log(error);
+                        reject(err);
                     }
                     conn.release();
                     resolve(results);
