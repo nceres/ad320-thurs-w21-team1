@@ -22,11 +22,20 @@ class Orders extends React.Component {
             <div>
 
                 <h1>Orders</h1>
-<hr/>
+    <hr style={{margin: "0"}}/>
+
+                <div style={styles}><h6>Order No.</h6></div>
+                <div style={styles}><h6>Location</h6></div>
+                <div style={styles}><h6>Name</h6></div>
+                <div style={styles}><h6>Item</h6></div>
+                <div style={styles}><h6>Quantity</h6></div>
+
+    <hr style={{margin: "0"}}/> <br/> 
                 {this.state.menuItems.map(menuItem =>
                         <div key={menuItem.index} className="mb-3">
 
-                                <h6>{menuItem.Hotdog}</h6>
+                                <div style={styles}>{menuItem.Hotdog}</div>
+                                <div style={styles}>{menuItem.Quantity}</div>
                                
                         </div>
                 )}
@@ -36,5 +45,10 @@ class Orders extends React.Component {
     }
 }
 
+// CSS in JS
+const styles = {
+    display: "inline-block",
+    width: "20%"
+ }
 
 export default Orders;
