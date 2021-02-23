@@ -21,7 +21,6 @@ class Home extends React.Component {
     render() {
         return (
             <div>
-                <p className="App-intro">{this.state.apiResponse}</p>
                 <h2>Hey, you're home!</h2>
                 <p>This is a bunch of text!</p>
                 <p>This a bunch more text!</p>

@@ -1,39 +1,93 @@
 import React, {Component} from 'react';
-import {FormControl, FormGroup, ControlLabel, HelpBlock, Checkbox, Radio, Button, Form} from 'react-bootstrap';
+import {Button, CardDeck, Card} from 'react-bootstrap';
 
 
 class Menu extends React.Component {
 
-    state = { menuItems: [], disabled_id: 1 }
+    constructor(props) {
+        super(props);
+
+        this.handleIncrement.bind(this);
+        this.handleDecrement.bind(this);
+        this.numberOrdered.bind(this);
+    }
+
+    state = {menuItems: [], orderedItems: []}
+
 
     componentDidMount() {
         fetch("/menu")
             .then(res => res.json())
-            .then(menuItems => this.setState({menuItems})).then(ignored => console.log(this.state));
+            .then(menuItems => this.setState({menuItems}))
+            .then(ignored => console.log(this.state)); // remove this log statement at some point
+    }
+
+    handleIncrement = (event) => {
+        const currentOrders = [...this.state.orderedItems];
+        const orderIndex = currentOrders.findIndex(element => element.hotdog_id === event.target.id);
+        if (orderIndex !== -1) {
+            currentOrders.splice(orderIndex, 1, {
+                "hotdog_id": event.target.id,
+                "quantity": currentOrders[orderIndex].quantity + 1
+            });
+        } else {
+            currentOrders.push({"hotdog_id": event.target.id, "quantity": 1});
+        }
+        this.setState({orderedItems: currentOrders});
+    }
+
+    handleDecrement = (event) => {
+        const currentOrders = [...this.state.orderedItems];
+        const orderIndex = currentOrders.findIndex(element => element.hotdog_id === event.target.id);
+        if (orderIndex !== -1) {
+            if (currentOrders[orderIndex].quantity > 0) {
+                currentOrders.splice(orderIndex, 1, {
+                    "hotdog_id": event.target.id,
+                    "quantity": currentOrders[orderIndex].quantity - 1
+                })
+            }
+            this.setState({orderedItems: currentOrders})
+        }
+    }
+
+    numberOrdered = (id) => {
+        const found = this.state.orderedItems.find(ele => ele.hotdog_id == id);
+        return found ? found.quantity : 0;
     }
 
     render() {
         return (
             <div>
-                <h1>Menu!</h1>
-                <Form>
-                {this.state.menuItems.map(menuItem =>
-                        <div key={menuItem.hotdog_id} className="mb-3">
-                            <Form.Check type={"checkbox"} id={menuItem.hotdog_id}>
-                                <Form.Check.Input disabled={menuItem.hotdog_id === this.state.disabled_id} type={"checkbox"} isValid/>
-                                <Form.Check.Label>{menuItem.hotdog_name}</Form.Check.Label>
-                                <Form.Control.Feedback type="valid">We can display a dynamic message here!</Form.Control.Feedback>
-                            </Form.Check>
+                <CardDeck>
+                    {this.state.menuItems.map(menuItem =>
+                        <div key={menuItem.hotdog_id}>
+                            <Card>
+                                <Card.Img
+                                    style={{width: "18rem"}}
+                                    variant="top"
+                                    src="https://i.pinimg.com/originals/5d/c6/38/5dc63889a0b76b9a0ce4bc1eb291ae00.png">
+                                </Card.Img>
+                                <Card.Body id={menuItem.hotdog_id}>
+                                    <Card.Title>{menuItem.hotdog_name}</Card.Title>
+                                    {this.numberOrdered(menuItem.hotdog_id) !== 0 &&
+                                    <Card.Text>number in cart: {this.numberOrdered(menuItem.hotdog_id)}</Card.Text>
+                                    }
+                                    <Button variant="outline-dark" onClick={this.handleIncrement}
+                                            id={menuItem.hotdog_id}>
+                                        +
+                                    </Button>
+                                    <Button variant="outline-dark" onClick={this.handleDecrement}
+                                            id={menuItem.hotdog_id}>
+                                        -
+                                    </Button>
+                                </Card.Body>
+                            </Card>
                         </div>
-                )}
-                <Button variant="primary" type="submit">
-                    Submit
-                </Button>
-                </Form>
+                    )}
+                </CardDeck>
             </div>
         );
     }
 }
-
 
 export default Menu;
