@@ -16,7 +16,7 @@ class Main extends React.Component {
         return (
             <HashRouter>
                 <div className="container">
-                    <h1 className="title">Simple Single Page App</h1>
+                    <h1 className="title">Dog Eat Dog World</h1>
                     <ul className="header">
                         <li><NavLink exact to="/">Home</NavLink></li>
                         <li><NavLink to="/menu">Menu</NavLink></li>

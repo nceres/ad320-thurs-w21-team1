@@ -88,9 +88,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `HotdogCart`.`Order`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `HotdogCart`.`Order` ;
+DROP TABLE IF EXISTS `HotdogCart`.`Customer_Order` ;
 
-CREATE TABLE IF NOT EXISTS `HotdogCart`.`Order` (
+CREATE TABLE IF NOT EXISTS `HotdogCart`.`Customer_Order` (
   `order_id` INT NOT NULL AUTO_INCREMENT COMMENT 'primary key',
   `date` DATETIME NULL COMMENT 'order date',
   `location_id` INT NOT NULL COMMENT 'foreign key',
