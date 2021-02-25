@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
 });
 
 // get data for a selected vendor/location
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', function(req, res, next) {
     queryUtil.query("SELECT * FROM location WHERE location_id = " + parseInt(req.params.id))
     .then(result => res.send(result));
   });
