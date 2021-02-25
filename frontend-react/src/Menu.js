@@ -67,15 +67,6 @@ class Menu extends React.Component {
         }).then(result => result.json()).then(json => console.log(json))
 }
 
- //     fetch('http://localhost:4000/api/users/register' , {
- //     method: "POST",
- //    headers: {
- //        'Content-type': 'application/json'
- //    },
- //    body: JSON.stringify(this.state)
- // })
- // .then((result) => result.json())
- //     .then((info) => { console.log(info); })
 
     render() {
         return (
