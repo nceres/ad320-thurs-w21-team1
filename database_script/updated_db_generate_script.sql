@@ -25,6 +25,8 @@ CREATE TABLE IF NOT EXISTS `HotdogCart`.`Location` (
   `name` VARCHAR(45) NULL COMMENT 'location name',
   `address` VARCHAR(45) NOT NULL COMMENT 'location address',
   `phone` VARCHAR(12) NULL COMMENT 'location phone',
+  `latitude` DECIMAL(8,5) NOT NULL COMMENT 'location latitude',
+  `longitude` DECIMAL(8,5) NOT NULL COMMENT 'location longitude',
   PRIMARY KEY (`location_id`))
 ENGINE = InnoDB;
 
@@ -210,11 +212,11 @@ INSERT INTO Hotdog VALUES (null, "Montreal dog", "none");
 
 
 # Location table
-INSERT INTO Location VALUES (NULL, "Capitol Hill", "202 E Broadway, Seattle", "206-606-2346");
-INSERT INTO Location VALUES (NULL, "Rainier Brewery", "1119 Airport Way S, Seattle", "206-943-8477");
-INSERT INTO Location VALUES (NULL, "Ballard HotDogs", "359 NW Market St, Seattle", "206-606-2346");
-INSERT INTO Location VALUES (NULL, "NSC", "9600 College Way North, Seattle", "206-934-3600");
-INSERT INTO Location VALUES (NULL, "Pioneer Square", "1 Pioneer Square, Seattle", "206-617-4310");
+INSERT INTO Location VALUES (NULL, "Capitol Hill", "202 E Broadway, Seattle", "206-606-2346", 47.62020, -122.32024);
+INSERT INTO Location VALUES (NULL, "Rainier Brewery", "1119 Airport Way S, Seattle", "206-943-8477", 47.59324, -122.32473);
+INSERT INTO Location VALUES (NULL, "Ballard HotDogs", "359 NW Market St, Seattle", "206-606-2346", 47.66824, -122.36173);
+INSERT INTO Location VALUES (NULL, "NSC", "9600 College Way North, Seattle", "206-934-3600", 47.69884, -122.33272);
+INSERT INTO Location VALUES (NULL, "Pioneer Square", "1 Pioneer Square, Seattle", "206-617-4310", 47.59953, -122.33427);
 
 # Person_Role table
 INSERT INTO Person_Role VALUES (NULL, "Customer");
