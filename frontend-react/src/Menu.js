@@ -10,6 +10,7 @@ class Menu extends React.Component {
         this.handleIncrement.bind(this);
         this.handleDecrement.bind(this);
         this.numberOrdered.bind(this);
+        this.onSubmit.bind(this);
     }
 
     state = {menuItems: [], orderedItems: []}
@@ -55,6 +56,27 @@ class Menu extends React.Component {
         return found ? found.quantity : 0;
     }
 
+    onSubmit = () => {
+        console.log("doing thing")
+        fetch("/orders" , {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(this.state.orderedItems)
+        }).then(result => result.json()).then(json => console.log(json))
+}
+
+ //     fetch('http://localhost:4000/api/users/register' , {
+ //     method: "POST",
+ //    headers: {
+ //        'Content-type': 'application/json'
+ //    },
+ //    body: JSON.stringify(this.state)
+ // })
+ // .then((result) => result.json())
+ //     .then((info) => { console.log(info); })
+
     render() {
         return (
             <div>
@@ -85,6 +107,7 @@ class Menu extends React.Component {
                         </div>
                     )}
                 </CardDeck>
+                <Button variant="primary" onClick={this.onSubmit}> does thing </Button>
             </div>
         );
     }
