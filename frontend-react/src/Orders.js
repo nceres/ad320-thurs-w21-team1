@@ -31,10 +31,14 @@ class Orders extends React.Component {
                 <div style={styles}><h6>Quantity</h6></div>
 
     <hr style={{margin: "0"}}/> <br/> 
+
                 {this.state.menuItems.map(menuItem =>
                         <div key={menuItem.index} className="mb-3">
 
-                                <div style={styles}>{menuItem.Hotdog}</div>
+                                <div style={styles}>{menuItem.Order_No}</div>
+                                <div style={styles}>{menuItem.Location}</div>                                
+                                <div style={styles}>{menuItem.First_Name}</div>
+                                <div style={styles}>{menuItem.Item}</div>
                                 <div style={styles}>{menuItem.Quantity}</div>
                                
                         </div>
