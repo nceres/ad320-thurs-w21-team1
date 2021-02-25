@@ -25,8 +25,6 @@ CREATE TABLE IF NOT EXISTS `HotdogCart`.`Location` (
   `name` VARCHAR(45) NULL COMMENT 'location name',
   `address` VARCHAR(45) NOT NULL COMMENT 'location address',
   `phone` VARCHAR(12) NULL COMMENT 'location phone',
-  `latitude` DECIMAL(8,5) NOT NULL COMMENT 'location latitude',
-  `longitude` DECIMAL(8,5) NOT NULL COMMENT 'location longitude',
   PRIMARY KEY (`location_id`))
 ENGINE = InnoDB;
 
@@ -88,7 +86,7 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `HotdogCart`.`Order`
+-- Table `HotdogCart`.`Customer_Order`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `HotdogCart`.`Customer_Order` ;
 
@@ -128,7 +126,7 @@ CREATE TABLE IF NOT EXISTS `HotdogCart`.`Order_Items` (
   INDEX `fk_Order Items_Hotdog1_idx` (`hotdog_id` ASC) VISIBLE,
   CONSTRAINT `fk_Order Item_Order1`
     FOREIGN KEY (`order_id`)
-    REFERENCES `HotdogCart`.`Customer_Order` (`order_id`)
+    REFERENCES `HotdogCart`.`Order` (`order_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Order Items_Hotdog1`
@@ -182,14 +180,15 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `HotdogCart`.`Disabled_Menu_Items` ;
 
 CREATE TABLE IF NOT EXISTS `HotdogCart`.`Disabled_Menu_Items` (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `person_id` INT NOT NULL,
   `hotdog_id` INT NOT NULL,
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `location_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `person_id_idx` (`person_id` ASC) VISIBLE,
   INDEX `hotdog_id_idx` (`hotdog_id` ASC) VISIBLE,
   CONSTRAINT `fk_vendor_disabled`
-    FOREIGN KEY (`person_id`)
+    FOREIGN KEY (`person_id`)    
     REFERENCES `HotdogCart`.`Person` (`person_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
@@ -197,7 +196,13 @@ CREATE TABLE IF NOT EXISTS `HotdogCart`.`Disabled_Menu_Items` (
     FOREIGN KEY (`hotdog_id`)
     REFERENCES `HotdogCart`.`Hotdog` (`hotdog_id`)
     ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_location_id`
+    FOREIGN KEY (`location_id`)
+    REFERENCES `HotdogCart`.`Location`(`location_id`)
+    ON DELETE NO ACTION
     ON UPDATE NO ACTION)
+    
 ENGINE = InnoDB;
 
 
@@ -212,11 +217,11 @@ INSERT INTO Hotdog VALUES (null, "Montreal dog", "none");
 
 
 # Location table
-INSERT INTO Location VALUES (NULL, "Capitol Hill", "202 E Broadway, Seattle", "206-606-2346", 47.62020, -122.32024);
-INSERT INTO Location VALUES (NULL, "Rainier Brewery", "1119 Airport Way S, Seattle", "206-943-8477", 47.59324, -122.32473);
-INSERT INTO Location VALUES (NULL, "Ballard HotDogs", "359 NW Market St, Seattle", "206-606-2346", 47.66824, -122.36173);
-INSERT INTO Location VALUES (NULL, "NSC", "9600 College Way North, Seattle", "206-934-3600", 47.69884, -122.33272);
-INSERT INTO Location VALUES (NULL, "Pioneer Square", "1 Pioneer Square, Seattle", "206-617-4310", 47.59953, -122.33427);
+INSERT INTO Location VALUES (NULL, "Capitol Hill", "202 E Broadway, Seattle", "206-606-2346");
+INSERT INTO Location VALUES (NULL, "Rainier Brewery", "1119 Airport Way S, Seattle", "206-943-8477");
+INSERT INTO Location VALUES (NULL, "Ballard HotDogs", "359 NW Market St, Seattle", "206-606-2346");
+INSERT INTO Location VALUES (NULL, "NSC", "9600 College Way North, Seattle", "206-934-3600");
+INSERT INTO Location VALUES (NULL, "Pioneer Square", "1 Pioneer Square, Seattle", "206-617-4310");
 
 # Person_Role table
 INSERT INTO Person_Role VALUES (NULL, "Customer");
@@ -256,7 +261,7 @@ INSERT INTO Order_Items VALUES (NULL, 1, 2, 5);
 INSERT INTO Order_Items VALUES (NULL, 1, 3, 1);
 
 # Disabled_Menu_Items table
-INSERT INTO Disabled_Menu_Items VALUES (2,2, NULL);
+INSERT INTO Disabled_Menu_Items VALUES (NULL,2,2, 1);
 
 
 
