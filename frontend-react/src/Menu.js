@@ -6,6 +6,8 @@ class Menu extends React.Component {
 
     constructor(props) {
         super(props);
+        console.log("ugh ok")
+        console.log(this.props.vendorId);
 
         this.handleIncrement.bind(this);
         this.handleDecrement.bind(this);
@@ -29,10 +31,11 @@ class Menu extends React.Component {
         if (orderIndex !== -1) {
             currentOrders.splice(orderIndex, 1, {
                 "hotdog_id": event.target.id,
-                "quantity": currentOrders[orderIndex].quantity + 1
+                "quantity": currentOrders[orderIndex].quantity + 1,
+                "vendor_id": this.props.vendorId
             });
         } else {
-            currentOrders.push({"hotdog_id": event.target.id, "quantity": 1});
+            currentOrders.push({"hotdog_id": event.target.id, "quantity": 1, "vendor_id": this.props.vendorId});
         }
         this.setState({orderedItems: currentOrders});
     }
@@ -44,7 +47,8 @@ class Menu extends React.Component {
             if (currentOrders[orderIndex].quantity > 0) {
                 currentOrders.splice(orderIndex, 1, {
                     "hotdog_id": event.target.id,
-                    "quantity": currentOrders[orderIndex].quantity - 1
+                    "quantity": currentOrders[orderIndex].quantity - 1,
+                    "vendor_id": this.props.vendorId
                 })
             }
             this.setState({orderedItems: currentOrders})
