@@ -62,13 +62,13 @@ class MapContainer extends React.Component {
                     <Marker
                         onClick={this.onMarkerClick}
                         name={'SOMA'}
-                        id={100}
+                        id={2}
                         position={{lat: 47.999, lng: -122.176}}/>
 
                     <Marker
                         onClick={this.onMarkerClick}
                         name={1}
-                        id={100}
+                        id={2}
                         position={{lat: 47.444, lng: -122.176}}
                         icon={image}/>
 

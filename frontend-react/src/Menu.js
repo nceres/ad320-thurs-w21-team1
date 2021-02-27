@@ -6,8 +6,6 @@ class Menu extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log("ugh ok")
-        console.log(this.props.vendorId);
 
         this.handleIncrement.bind(this);
         this.handleDecrement.bind(this);
@@ -27,6 +25,7 @@ class Menu extends React.Component {
 
     handleIncrement = (event) => {
         const currentOrders = [...this.state.orderedItems];
+        console.log(currentOrders);
         const orderIndex = currentOrders.findIndex(element => element.hotdog_id === event.target.id);
         if (orderIndex !== -1) {
             currentOrders.splice(orderIndex, 1, {
@@ -61,7 +60,7 @@ class Menu extends React.Component {
     }
 
     onSubmit = () => {
-        console.log("doing thing")
+        console.log(JSON.stringify(this.state.orderedItems))
         fetch("/orders" , {
             method: "POST",
             headers: {
