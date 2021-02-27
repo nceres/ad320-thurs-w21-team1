@@ -25,14 +25,16 @@ class Menu extends React.Component {
 
     handleIncrement = (event) => {
         const currentOrders = [...this.state.orderedItems];
+        console.log(currentOrders);
         const orderIndex = currentOrders.findIndex(element => element.hotdog_id === event.target.id);
         if (orderIndex !== -1) {
             currentOrders.splice(orderIndex, 1, {
                 "hotdog_id": event.target.id,
-                "quantity": currentOrders[orderIndex].quantity + 1
+                "quantity": currentOrders[orderIndex].quantity + 1,
+                "vendor_id": this.props.vendorId
             });
         } else {
-            currentOrders.push({"hotdog_id": event.target.id, "quantity": 1});
+            currentOrders.push({"hotdog_id": event.target.id, "quantity": 1, "vendor_id": this.props.vendorId});
         }
         this.setState({orderedItems: currentOrders});
     }
@@ -44,7 +46,8 @@ class Menu extends React.Component {
             if (currentOrders[orderIndex].quantity > 0) {
                 currentOrders.splice(orderIndex, 1, {
                     "hotdog_id": event.target.id,
-                    "quantity": currentOrders[orderIndex].quantity - 1
+                    "quantity": currentOrders[orderIndex].quantity - 1,
+                    "vendor_id": this.props.vendorId
                 })
             }
             this.setState({orderedItems: currentOrders})
@@ -57,7 +60,7 @@ class Menu extends React.Component {
     }
 
     onSubmit = () => {
-        console.log("doing thing")
+        console.log(JSON.stringify(this.state.orderedItems))
         fetch("/orders" , {
             method: "POST",
             headers: {

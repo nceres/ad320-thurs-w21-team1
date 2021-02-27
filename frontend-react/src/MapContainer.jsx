@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {Map, GoogleApiWrapper, Marker, InfoWindow} from 'google-maps-react';
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -21,12 +21,11 @@ class MapContainer extends React.Component {
     };
 
     showModal = () => {
-        this.setState({ showingModal: !this.state.showingModal })
+        this.setState({showingModal: !this.state.showingModal})
     }
 
 
     onMarkerClick = (props, marker) => {
-        console.log("you clicked on a marker :)");
         this.setState({
             activeMarker: marker,
             selectedVendor: props,
@@ -63,11 +62,13 @@ class MapContainer extends React.Component {
                     <Marker
                         onClick={this.onMarkerClick}
                         name={'SOMA'}
+                        id={2}
                         position={{lat: 47.999, lng: -122.176}}/>
 
                     <Marker
                         onClick={this.onMarkerClick}
-                        name={'This is a vendor!'}
+                        name={1}
+                        id={2}
                         position={{lat: 47.444, lng: -122.176}}
                         icon={image}/>
 
@@ -82,15 +83,14 @@ class MapContainer extends React.Component {
                         </div>
                     </InfoWindow>
                 </Map>
-                <button onClick={this.showModal}>Display Modal</button>
+                <button onClick={this.showModal} onHide={this.showModal}>Display Modal</button>
                 <Modal show={this.state.showingModal}>
                     <Modal.Header>
                         <Modal.Title>This is going to be a menu!</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body><Menu></Menu></Modal.Body>
+                    <Modal.Body><Menu vendorId={this.state.selectedVendor.id}></Menu></Modal.Body>
                     <Modal.Footer>
-                        <button onClick={this.showModal}>Cancel</button>
-                        <button onClick={this.showModal}>Save</button>
+                        <button onClick={this.showModal}>Done</button>
                     </Modal.Footer>
                 </Modal>
             </div>
