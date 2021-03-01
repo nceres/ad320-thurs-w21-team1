@@ -4,6 +4,10 @@ body {
     margin: 0;
 }
 
+.buttonGroup {
+    float: right;
+}
+
 h1, h2, p, ul, li {
     font-family: sans-serif;
 }
