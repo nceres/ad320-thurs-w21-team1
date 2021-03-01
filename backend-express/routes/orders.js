@@ -13,17 +13,19 @@ router.post('/', function (req, res) {
         console.log("empty orders array!")
         res.sendStatus(400);
     }
+
     const vendorId = ordersArray[0].vendor_id;
     // we know that there is at least one order, so we can make the Customer_Order with a single element of the list.
-    queryUtil.query("INSERT INTO Customer_Order VALUES" +
-        " (NULL, \'" + getDate() + "\', " + vendorId + ", 1)")
+    queryUtil.query("INSERT INTO Customer_Order " +
+        "VALUES (NULL, \'" + getDate() + "\', " + vendorId + ", 1)")
         .catch(err => console.log("error inserting order " + err))
         .finally(ignored => {
             queryUtil.query("SELECT MAX(order_id) AS maxId FROM Customer_Order")
                 .then(result => result[0].maxId)
-                .then(maxId => ordersArray
-                    .forEach(order => {
-                        queryUtil.query("INSERT INTO Order_Items VALUES (NULL, " + order.quantity + ", " + maxId + ", " + order.hotdog_id + ")")
+                .then(maxId =>
+                    ordersArray.forEach(order => {
+                        queryUtil.query("INSERT INTO Order_Items VALUES " +
+                            "(NULL, " + order.quantity + ", " + maxId + ", " + order.hotdog_id + ")")
                             .catch(err => console.log("error inserting order item " + err))
                     }));
         })
