@@ -20,7 +20,7 @@ mysqlConfig.json
 # misc
 /backend-express/build
 /frontend-react/build
-/frontend-react/.eslintcache
+#/frontend-react/.eslintcache
 
 .DS_Store
 .env.local
