@@ -5,8 +5,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Menu from "./Menu"
 
 const mapStyles = {
-    height: 400,
-    width: 800
+    position: 'absolute',
+    width: 800,
+    height: 400
 };
 
 const image = "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
@@ -17,13 +18,13 @@ class MapContainer extends React.Component {
         activeMarker: {},
         selectedVendor: {},
         showingInfoWindow: false,
-        showingModal: false
+        showingModal: false,
+        locations: []
     };
 
     showModal = () => {
         this.setState({showingModal: !this.state.showingModal})
     }
-
 
     onMarkerClick = (props, marker) => {
         this.setState({
@@ -32,14 +33,13 @@ class MapContainer extends React.Component {
             showingInfoWindow: true,
             showingModal: true
         })
-
     };
 
     onInfoWindowClose = () =>
         this.setState({
             activeMarker: null,
             showingInfoWindow: false
-        });
+    });
 
     onMapClicked = () => {
         if (this.state.showingInfoWindow)
@@ -47,6 +47,24 @@ class MapContainer extends React.Component {
                 activeMarker: null,
                 showingInfoWindow: false
             });
+    };
+
+    componentDidMount() {
+        fetch("/vendors")
+            .then(res => res.json())
+            .then(data => this.setState({locations: data}))
+    };
+
+    renderMarkers() {
+        return this.state.locations.map((locations, i) => {
+          return <Marker
+            key = { i }
+            id = { locations.location_id }
+            position = { {lat: locations.latitude, lng: locations.longitude} }
+            name = { locations.name }
+            icon = { image }
+            onClick = { this.onMarkerClick }/>
+        })
     };
 
     render() {
@@ -57,21 +75,11 @@ class MapContainer extends React.Component {
                     onClick={this.onMapClicked}
                     zoom={10}
                     style={mapStyles}
-                    initialCenter={{lat: 47.444, lng: -122.176}}
-                    resetBoundsOnResize={true}>
-                    <Marker
-                        onClick={this.onMarkerClick}
-                        name={'SOMA'}
-                        id={2}
-                        position={{lat: 47.999, lng: -122.176}}/>
-
-                    <Marker
-                        onClick={this.onMarkerClick}
-                        name={1}
-                        id={2}
-                        position={{lat: 47.444, lng: -122.176}}
-                        icon={image}/>
-
+                    initialCenter={{lat: 47.62111, lng: -122.34930}}
+                    resetBoundsOnResize={true}
+                >
+                    
+                    { this.renderMarkers() }
 
                     <InfoWindow
                         marker={this.state.activeMarker}
@@ -83,7 +91,9 @@ class MapContainer extends React.Component {
                         </div>
                     </InfoWindow>
                 </Map>
+                
                 <button onClick={this.showModal} onHide={this.showModal}>Display Modal</button>
+                
                 <Modal show={this.state.showingModal}>
                     <Modal.Header>
                         <Modal.Title>This is going to be a menu!</Modal.Title>
@@ -97,7 +107,6 @@ class MapContainer extends React.Component {
         );
     }
 }
-
 
 export default GoogleApiWrapper({
     apiKey: ''
