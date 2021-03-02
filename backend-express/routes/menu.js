@@ -5,7 +5,7 @@ const queryUtil = require("../db-utils/queryUtil");
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    queryUtil.query("select hotdog_id, hotdog_name from Hotdog")
+    queryUtil.query("select hotdog_id, hotdog_name, hotdog_price from Hotdog")
         .then(result => res.send(result));
 });
 

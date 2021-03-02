@@ -29,7 +29,6 @@ class Main extends React.Component {
 
     handleOnClick = (viewClicked) => {
         this.setState({selectedView: viewClicked});
-        //reload app to apply view
     }
 
     componentDidMount() {

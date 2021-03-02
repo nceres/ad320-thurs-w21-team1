@@ -13,7 +13,7 @@ class Menu extends React.Component {
         this.onSubmit.bind(this);
     }
 
-    state = {menuItems: [], orderedItems: []}
+    state = {menuItems: [], orderedItems: [], orderTotal: 0}
 
 
     componentDidMount() {
@@ -23,34 +23,38 @@ class Menu extends React.Component {
             .then(ignored => console.log(this.state)); // remove this log statement at some point
     }
 
-    handleIncrement = (event) => {
+    handleIncrement = (hotdogId, price) => {
         const currentOrders = [...this.state.orderedItems];
-        console.log(currentOrders);
-        const orderIndex = currentOrders.findIndex(element => element.hotdog_id === event.target.id);
+        const orderIndex = currentOrders.findIndex(element => element.hotdog_id === hotdogId);
         if (orderIndex !== -1) {
             currentOrders.splice(orderIndex, 1, {
-                "hotdog_id": event.target.id,
+                "hotdog_id": hotdogId,
                 "quantity": currentOrders[orderIndex].quantity + 1,
                 "vendor_id": this.props.vendorId
             });
         } else {
-            currentOrders.push({"hotdog_id": event.target.id, "quantity": 1, "vendor_id": this.props.vendorId});
+            currentOrders.push({"hotdog_id": hotdogId, "quantity": 1, "vendor_id": this.props.vendorId});
         }
-        this.setState({orderedItems: currentOrders});
+        const newOrderTotal = this.state.orderTotal + parseFloat(price);
+        this.setState({orderedItems: currentOrders, orderTotal: newOrderTotal});
     }
 
-    handleDecrement = (event) => {
+    handleDecrement = (hotdogId, price) => {
+        let newOrderTotal = this.state.orderTotal;
         const currentOrders = [...this.state.orderedItems];
-        const orderIndex = currentOrders.findIndex(element => element.hotdog_id === event.target.id);
-        if (orderIndex !== -1) {
-            if (currentOrders[orderIndex].quantity > 0) {
-                currentOrders.splice(orderIndex, 1, {
-                    "hotdog_id": event.target.id,
-                    "quantity": currentOrders[orderIndex].quantity - 1,
-                    "vendor_id": this.props.vendorId
-                })
+        if (currentOrders.length > 0) {
+            const orderIndex = currentOrders.findIndex(element => element.hotdog_id === hotdogId);
+            if (orderIndex !== -1) {
+                if (currentOrders[orderIndex].quantity > 0) {
+                    currentOrders.splice(orderIndex, 1, {
+                        "hotdog_id": hotdogId,
+                        "quantity": currentOrders[orderIndex].quantity - 1,
+                        "vendor_id": this.props.vendorId
+                    })
+                    newOrderTotal -= price;
+                    this.setState({orderedItems: currentOrders, orderTotal: newOrderTotal})
+                }
             }
-            this.setState({orderedItems: currentOrders})
         }
     }
 
@@ -61,14 +65,14 @@ class Menu extends React.Component {
 
     onSubmit = () => {
         console.log(JSON.stringify(this.state.orderedItems))
-        fetch("/orders" , {
+        fetch("/orders", {
             method: "POST",
             headers: {
                 'Content-type': 'application/json'
             },
             body: JSON.stringify(this.state.orderedItems)
         }).then(result => result.json()).then(json => console.log(json))
-}
+    }
 
 
     render() {
@@ -88,20 +92,22 @@ class Menu extends React.Component {
                                     {this.numberOrdered(menuItem.hotdog_id) !== 0 &&
                                     <Card.Text>number in cart: {this.numberOrdered(menuItem.hotdog_id)}</Card.Text>
                                     }
-                                    <Button variant="outline-dark" onClick={this.handleIncrement}
-                                            id={menuItem.hotdog_id}>
+                                    <Button variant="outline-dark"
+                                            onClick={() => this.handleIncrement(menuItem.hotdog_id, menuItem.hotdog_price)}>
                                         +
                                     </Button>
-                                    <Button variant="outline-dark" onClick={this.handleDecrement}
-                                            id={menuItem.hotdog_id}>
+                                    <Button variant="outline-dark"
+                                            onClick={() => this.handleDecrement(menuItem.hotdog_id, menuItem.hotdog_price)}>
                                         -
                                     </Button>
                                 </Card.Body>
+                                <Card.Footer>${menuItem.hotdog_price}</Card.Footer>
                             </Card>
                         </div>
                     )}
                 </CardDeck>
-                <Button variant="primary" onClick={this.onSubmit}> does thing </Button>
+                <Button variant="primary" onClick={this.onSubmit}> Submit your order!
+                    ${this.state.orderTotal.toFixed(2)} </Button>
             </div>
         );
     }
