@@ -4,7 +4,7 @@ const queryUtil = require("../db-utils/queryUtil");
 
 getDate = () => new Date().toISOString().slice(0, 19).replace('T', ' ');
 
-//this is incomplete
+
 router.post('/', function (req, res) {
 
     const ordersArray = req.body;

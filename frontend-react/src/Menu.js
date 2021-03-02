@@ -15,7 +15,6 @@ class Menu extends React.Component {
 
     state = {menuItems: [], orderedItems: [], orderTotal: 0}
 
-
     componentDidMount() {
         fetch("/menu")
             .then(res => res.json())
