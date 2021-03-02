@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import fire from '../src/config/Fire';
 
 class Home extends React.Component {
     constructor(props) {
@@ -16,6 +17,10 @@ class Home extends React.Component {
 
     componentWillMount() {
         this.callBackend();
+    }
+
+    logout = () => {
+        fire.auth().signOut();
     }
 
     render() {

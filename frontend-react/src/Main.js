@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import fire from '../src/config/Fire';
+import Login from '../src/components/LoginRegister';
+import LogOut from './components/LogOut';
 import {
     Route,
     NavLink,
@@ -11,8 +14,16 @@ import Contact from './Contact';
 import MapContainer from './MapContainer';
 import Admin from './Admin';
 
+
 class Main extends React.Component {
 
+    constructor(){
+        super();
+        this.state = {
+          user: null
+        }
+      }
+    
     state = {
         selectedView: "customer"
     }
@@ -23,13 +34,28 @@ class Main extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.state.selectedView)
+        console.log(this.state.selectedView);
+        this.authListener();
     }
+
+    authListener(){
+        fire.auth().onAuthStateChanged((user) => {
+          if(user){
+            this.setState({user});
+          }else{
+            this.setState({user:null});
+          }
+        });
+      }
 
     render() {
         return (
             <HashRouter>
                 <div className="container">
+                <div className="logout">
+                {this.state.user ? (<LogOut />) : (<Login />)}
+                </div>
+                  <h1 className="title">Dog Eat Dog World</h1>
                     <h1 className="title">Dog Eat Dog World</h1>
                     <ButtonGroup className="buttonGroup">
                         <Button variant="primary" onClick={() => this.handleOnClick("customer")}>Customer</Button>
