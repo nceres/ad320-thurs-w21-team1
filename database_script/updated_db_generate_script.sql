@@ -83,6 +83,7 @@ CREATE TABLE IF NOT EXISTS `HotdogCart`.`Hotdog` (
   `hotdog_id` INT NOT NULL AUTO_INCREMENT COMMENT 'primary key',
   `hotdog_name` VARCHAR(45) NULL COMMENT 'hotdog name',
   `hotdog_image` VARCHAR(45) NULL COMMENT 'link to image',
+  `hotdog_price` DECIMAL(8,2) NULL COMMENT 'price',
   PRIMARY KEY (`hotdog_id`))
 ENGINE = InnoDB;
 
@@ -209,13 +210,13 @@ ENGINE = InnoDB;
 
 
 # Hotdog table
-INSERT INTO Hotdog VALUES (null, "Classic", "none");
-INSERT INTO Hotdog VALUES (null, "Seattle dog", "none");
-INSERT INTO Hotdog VALUES (null, "Frankfurter", "none");
-INSERT INTO Hotdog VALUES (null, "Chicago dog", "none");
-INSERT INTO Hotdog VALUES (null, "Corn dog", "none");
-INSERT INTO Hotdog VALUES (null, "Bratwurst", "none");
-INSERT INTO Hotdog VALUES (null, "Montreal dog", "none");
+INSERT INTO Hotdog VALUES (null, "Classic", "none", 1.50);
+INSERT INTO Hotdog VALUES (null, "Seattle dog", "none", 2.00);
+INSERT INTO Hotdog VALUES (null, "Frankfurter", "none", 3.00);
+INSERT INTO Hotdog VALUES (null, "Chicago dog", "none", 3.00);
+INSERT INTO Hotdog VALUES (null, "Corn dog", "none", 1.50);
+INSERT INTO Hotdog VALUES (null, "Bratwurst", "none", 3.00);
+INSERT INTO Hotdog VALUES (null, "Montreal dog", "none", 4.00);
 
 
 # Location table

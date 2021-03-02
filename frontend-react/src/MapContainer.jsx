@@ -39,7 +39,7 @@ class MapContainer extends React.Component {
         this.setState({
             activeMarker: null,
             showingInfoWindow: false
-    });
+        });
 
     onMapClicked = () => {
         if (this.state.showingInfoWindow)
@@ -57,13 +57,13 @@ class MapContainer extends React.Component {
 
     renderMarkers() {
         return this.state.locations.map((locations, i) => {
-          return <Marker
-            key = { i }
-            id = { locations.location_id }
-            position = { {lat: locations.latitude, lng: locations.longitude} }
-            name = { locations.name }
-            icon = { image }
-            onClick = { this.onMarkerClick }/>
+            return <Marker
+                key={i}
+                id={locations.location_id}
+                position={{lat: locations.latitude, lng: locations.longitude}}
+                name={locations.name}
+                icon={image}
+                onClick={this.onMarkerClick}/>
         })
     };
 
@@ -78,8 +78,8 @@ class MapContainer extends React.Component {
                     initialCenter={{lat: 47.62111, lng: -122.34930}}
                     resetBoundsOnResize={true}
                 >
-                    
-                    { this.renderMarkers() }
+
+                    {this.renderMarkers()}
 
                     <InfoWindow
                         marker={this.state.activeMarker}
@@ -91,9 +91,9 @@ class MapContainer extends React.Component {
                         </div>
                     </InfoWindow>
                 </Map>
-                
+
                 <button onClick={this.showModal} onHide={this.showModal}>Display Modal</button>
-                
+
                 <Modal show={this.state.showingModal}>
                     <Modal.Header>
                         <Modal.Title>This is going to be a menu!</Modal.Title>
