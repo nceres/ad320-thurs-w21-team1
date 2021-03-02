@@ -22,7 +22,6 @@ class Home extends React.Component {
     logout = () => {
         fire.auth().signOut();
     }
-
     render() {
         return (
             <div>

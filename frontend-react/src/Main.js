@@ -14,7 +14,6 @@ import Contact from './Contact';
 import MapContainer from './MapContainer';
 import Admin from './Admin';
 
-
 class Main extends React.Component {
 
     constructor(){
