@@ -129,7 +129,7 @@ CREATE TABLE IF NOT EXISTS `HotdogCart`.`Order_Items` (
   INDEX `fk_Order Items_Hotdog1_idx` (`hotdog_id` ASC) VISIBLE,
   CONSTRAINT `fk_Order Item_Order1`
     FOREIGN KEY (`order_id`)
-    REFERENCES `HotdogCart`.`Order` (`order_id`)
+    REFERENCES `HotdogCart`.`Customer_Order` (`order_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Order Items_Hotdog1`
