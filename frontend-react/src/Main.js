@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import fire from '../src/config/Fire';
 import Login from '../src/components/LoginRegister';
 import LogOut from './components/LogOut';
+import Popup from 'reactjs-popup';
+
+
 import {
     Route,
     NavLink,
@@ -50,10 +53,12 @@ class Main extends React.Component {
         return (
             <HashRouter>
                 <div className="container">
-                <div className="logout">
+
+                <Popup trigger={<button className="login"> Login</button>} position="left center">
+                   <div className="logout">
                 {this.state.user ? (<LogOut />) : (<Login />)}
                 </div>
-                  <h1 className="title">Dog Eat Dog World</h1>
+                 </Popup>
                     <h1 className="title">Dog Eat Dog World</h1>
                     <ButtonGroup className="buttonGroup">
                         <Button variant="primary" onClick={() => this.handleOnClick("customer")}>Customer</Button>
