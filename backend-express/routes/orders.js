@@ -2,9 +2,6 @@ var express = require('express');
 var router = express.Router();
 const queryUtil = require("../db-utils/queryUtil");
 
-getDate = () => new Date().toISOString().slice(0, 19).replace('T', ' ');
-
-
 router.post('/', function (req, res) {
 
     const ordersArray = req.body;
@@ -16,7 +13,7 @@ router.post('/', function (req, res) {
     const vendorId = ordersArray[0].vendor_id;
     // we know that there is at least one order, so we can make the Customer_Order with a single element of the list.
     queryUtil.query("INSERT INTO Customer_Order VALUES" +
-        " (NULL, \'" + getDate() + "\', " + vendorId + ", 1)")
+        " (NULL, \'" + queryUtil.getDate() + "\', " + vendorId + ", 1)")
         .catch(err => console.log("error inserting order " + err))
         .finally(ignored => {
             queryUtil.query("SELECT MAX(order_id) AS maxId FROM Customer_Order")

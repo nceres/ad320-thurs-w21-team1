@@ -16,6 +16,18 @@ CREATE SCHEMA IF NOT EXISTS `HotdogCart` DEFAULT CHARACTER SET utf8 ;
 USE `HotdogCart` ;
 
 -- -----------------------------------------------------
+-- Table `HotdogCart`.`Logs`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `HotdogCart`.`Logs` ;
+
+CREATE TABLE IF NOT EXISTS `HotdogCart`.`Logs` (
+  `id` INT NOT NULL AUTO_INCREMENT COMMENT 'primary key',
+  `log_line` VARCHAR(500) NULL COMMENT 'log lines',
+  `log_timestamp` DATETIME NULL COMMENT 'timestamp',
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
 -- Table `HotdogCart`.`Location`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `HotdogCart`.`Location` ;
