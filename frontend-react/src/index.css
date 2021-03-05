@@ -56,17 +56,34 @@ ul.header li a {
 }
 
 /**************   Login Styling  **********/
-.form_block{
+.login_form{
     width: 100%;
     display: table;
-    margin-top: 2%;
+    margin-top: 10%;
     margin-left: auto;
     margin-right: auto;
     background-color: rgba(0,0,0,1);
     padding: 5px;
     border-radius: 5px;
   }
-  .form_block > #title{
+
+  .login {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-radius: 10%;
+    cursor: pointer;
+    position: relative;
+    flex: 1 1 auto;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    height: 45px;
+    min-width: 75px;
+    width: 10%;
+    float: right;
+    
+  }
+  .login_form > #title{
     background: rgba(0,0,0,1);;
     padding: 10px;
     color: #fff;
@@ -77,7 +94,7 @@ ul.header li a {
     border-top-left-radius: 5px;
     text-shadow: -1px -1px 0 rgba(0,0,0,1);
   }
-  .form_block > .body{
+  .login_form > .body{
     background: rgb(247, 247, 247);;
     padding: 10px;
     display: table;

@@ -55,7 +55,7 @@ class Login extends Component {
             (<button className="registerBtn" onClick={() => this.getAction('login')}>Login</button>)
 
         return(
-            <div className="form_block">
+            <div className="login_form">
                 <div id="title">{this.state.formTitle}</div>
                 <div className="body">
                     {errorNotification}
