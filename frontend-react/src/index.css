@@ -56,7 +56,7 @@ ul.header li a {
 }
 
 /**************   Login Styling  **********/
-.form_block{
+.login_form{
     width: 100%;
     display: table;
     margin-top: 10%;
@@ -83,7 +83,7 @@ ul.header li a {
     float: right;
     
   }
-  .form_block > #title{
+  .login_form > #title{
     background: rgba(0,0,0,1);;
     padding: 10px;
     color: #fff;
@@ -94,7 +94,7 @@ ul.header li a {
     border-top-left-radius: 5px;
     text-shadow: -1px -1px 0 rgba(0,0,0,1);
   }
-  .form_block > .body{
+  .login_form > .body{
     background: rgb(247, 247, 247);;
     padding: 10px;
     display: table;
