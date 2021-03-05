@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Button, CardDeck, Card} from 'react-bootstrap';
+import logHelper from "./utils";
 
 
 class Menu extends React.Component {
@@ -63,14 +64,14 @@ class Menu extends React.Component {
     }
 
     onSubmit = () => {
-        console.log(JSON.stringify(this.state.orderedItems))
+        logHelper({logline: "order submitted at location " + this.state.orderedItems[0].vendor_id})
         fetch("/orders", {
             method: "POST",
             headers: {
                 'Content-type': 'application/json'
             },
             body: JSON.stringify(this.state.orderedItems)
-        }).then(result => result.json()).then(json => console.log(json))
+        }).then(result => result.json())
     }
 
 
