@@ -3,8 +3,6 @@ import fire from '../src/config/Fire';
 import Login from '../src/components/LoginRegister';
 import LogOut from './components/LogOut';
 import Popup from 'reactjs-popup';
-
-
 import {
     Route,
     NavLink,
@@ -16,6 +14,7 @@ import Menu from './Menu';
 import Contact from './Contact';
 import MapContainer from './MapContainer';
 import Admin from './Admin';
+import Vendor from './Vendor';
 
 class Main extends React.Component {
 
@@ -53,7 +52,6 @@ class Main extends React.Component {
         return (
             <HashRouter>
                 <div className="container">
-
                 <Popup trigger={<button className="login"> Login</button>} position="left center">
                    <div className="logout">
                 {this.state.user ? (<LogOut />) : (<Login />)}
@@ -72,6 +70,8 @@ class Main extends React.Component {
                         <li><NavLink to="/mapContainer">Map</NavLink></li>
                         {this.state.selectedView === "admin" && <li><NavLink to="/admin">Admin</NavLink></li>
                         }
+                        {this.state.selectedView === "vendor" && <li><NavLink to="/vendor">Vendor</NavLink></li>
+                        }
                     </ul>
                     <div className="content">
                         <Route exact path="/" component={ Home }></Route>
@@ -79,6 +79,7 @@ class Main extends React.Component {
                         <Route path="/contact" component={ Contact }></Route>
                         <Route path="/mapContainer" component={ MapContainer }></Route>
                         <Route path="/admin" component={ Admin }></Route>
+                        <Route path="/vendor" component={ Vendor }></Route>
                     </div>
                 </div>
             </HashRouter>
