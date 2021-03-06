@@ -10,7 +10,7 @@ router.get('/', function(req, res) {
 
 // get menu for a specific vendor (checks to see if items are disabled)
 router.get('/:id', function(req, res) {
-    queryUtil.query("SELECT * FROM hotdog WHERE hotdog_id NOT IN (SELECT hotdog_id FROM disabled_menu_items WHERE location_id = " + req.params.id + ")")
+    queryUtil.query("SELECT * FROM hotdog WHERE hotdog_id NOT IN (SELECT hotdog_id FROM Disabled_Menu_Items WHERE location_id = \'" + req.params.id + "\')")
         .then(result => res.send(result));
 });
 
