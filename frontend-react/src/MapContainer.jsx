@@ -23,6 +23,7 @@ class MapContainer extends React.Component {
     };
 
     showModal = () => {
+        console.log("showmodal executed")
         this.setState({showingModal: !this.state.showingModal})
     }
 
@@ -91,16 +92,16 @@ class MapContainer extends React.Component {
                         </div>
                     </InfoWindow>
                 </Map>
-
+                {/*need this?*/}
                 <button onClick={this.showModal} onHide={this.showModal}>Display Modal</button>
 
                 <Modal show={this.state.showingModal}>
                     <Modal.Header>
                         <Modal.Title>This is going to be a menu!</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body><Menu vendorId={this.state.selectedVendor.id}></Menu></Modal.Body>
+                    <Modal.Body><Menu vendorId={this.state.selectedVendor.id} showModal={this.showModal}></Menu></Modal.Body>
                     <Modal.Footer>
-                        <button onClick={this.showModal}>Done</button>
+                        <button onClick={this.showModal}>Close Window</button>
                     </Modal.Footer>
                 </Modal>
             </div>

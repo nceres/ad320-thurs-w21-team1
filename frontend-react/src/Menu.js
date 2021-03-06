@@ -64,6 +64,8 @@ class Menu extends React.Component {
     }
 
     onSubmit = () => {
+        //first thing we do is close modal because that is only customer facing action
+        this.props.showModal();
         logHelper({logline: "order submitted at location " + this.state.orderedItems[0].vendor_id})
         fetch("/orders", {
             method: "POST",
