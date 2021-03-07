@@ -11,6 +11,7 @@ const mapStyles = {
 };
 
 const image = "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
+const locationMarker = "http://maps.google.com/mapfiles/ms/icons/red.png";
 
 class MapContainer extends React.Component {
 
@@ -23,7 +24,6 @@ class MapContainer extends React.Component {
     };
 
     showModal = () => {
-        console.log("showmodal executed")
         this.setState({showingModal: !this.state.showingModal})
     }
 
@@ -56,6 +56,22 @@ class MapContainer extends React.Component {
             .then(data => this.setState({locations: data}))
     };
 
+    componentWillMount(){
+    if (navigator.geolocation) {
+        navigator.geolocation.watchPosition((position) => {
+          this.setState({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          });
+        },
+        (err) => console.log(err),
+    
+        );
+      } else {
+        alert('No location available')
+      }
+    }
+
     renderMarkers() {
         return this.state.locations.map((locations, i) => {
             return <Marker
@@ -65,10 +81,24 @@ class MapContainer extends React.Component {
                 name={locations.name}
                 icon={image}
                 onClick={this.onMarkerClick}/>
+
+                
+
+                 
         })
+        
     };
 
+
+
+    
+
     render() {
+
+        const { p } = this.props;
+    const { lat, lng } = this.state;
+        
+
         return (
             <div className="theMap">
                 <Map
@@ -79,8 +109,22 @@ class MapContainer extends React.Component {
                     initialCenter={{lat: 47.62111, lng: -122.34930}}
                     resetBoundsOnResize={true}
                 >
+                
 
                     {this.renderMarkers()}
+
+                    {<Marker
+                    
+                    position={{lat:this.state.lat, lng:this.state.lng }}
+                    icon={locationMarker}
+                    title="You Are Here!"
+                
+                    
+        
+        />}
+        
+
+            
 
                     <InfoWindow
                         marker={this.state.activeMarker}
@@ -88,27 +132,45 @@ class MapContainer extends React.Component {
                         visible={this.state.showingInfoWindow}
                     >
                         <div>
-                            <h4>Vendor Name: {this.state.selectedVendor.name}</h4>
+                            <h4>{this.state.selectedVendor.name}</h4>
                         </div>
+
+                        
                     </InfoWindow>
+
+                
+                    
                 </Map>
-                {/*need this?*/}
+
                 <button onClick={this.showModal} onHide={this.showModal}>Display Modal</button>
 
                 <Modal show={this.state.showingModal}>
                     <Modal.Header>
-                        <Modal.Title>This is going to be a menu!</Modal.Title>
+                        <Modal.Title>Today's Menu of {this.state.selectedVendor.name} Location</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body><Menu vendorId={this.state.selectedVendor.id} showModal={this.showModal}></Menu></Modal.Body>
+                    <Modal.Body><Menu vendorId={this.state.selectedVendor.id}></Menu></Modal.Body>
                     <Modal.Footer>
-                        <button onClick={this.showModal}>Close Window</button>
+                        <button onClick={this.showModal}>Done</button>
                     </Modal.Footer>
                 </Modal>
+                
+      <p> Your location on the map</p>
+                
             </div>
-        );
+
+            
+            
+            
+        );        
+        
+        
     }
+
+    
 }
 
+
+
 export default GoogleApiWrapper({
-    apiKey: ''
+    apiKey: 'AIzaSyDKOdHaLhe85VCQ7H7i7hCGi0LdU5g74Ww'
 })(MapContainer);
