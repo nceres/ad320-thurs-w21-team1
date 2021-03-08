@@ -17,7 +17,8 @@ class Menu extends React.Component {
     state = {menuItems: [], orderedItems: [], orderTotal: 0}
 
     componentDidMount() {
-        fetch("/menu")
+        console.log("this is vendor number: " + this.props.vendorId)
+        fetch("/menu/" + this.props.vendorId)
             .then(res => res.json())
             .then(menuItems => this.setState({menuItems}))
             .then(ignored => console.log(this.state)); // remove this log statement at some point
