@@ -17,7 +17,7 @@ class Menu extends React.Component {
     state = {menuItems: [], orderedItems: [], orderTotal: 0}
 
     componentDidMount() {
-        fetch("/menu")
+        fetch("/menu/" + this.props.vendorId)
             .then(res => res.json())
             .then(menuItems => this.setState({menuItems}))
             .then(ignored => console.log(this.state)); // remove this log statement at some point
@@ -66,14 +66,16 @@ class Menu extends React.Component {
     onSubmit = () => {
         //first thing we do is close modal because that is only customer facing action
         this.props.showModal();
-        logHelper({logline: "order submitted at location " + this.state.orderedItems[0].vendor_id})
-        fetch("/orders", {
-            method: "POST",
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify(this.state.orderedItems)
-        }).then(result => result.json())
+        if (this.state.orderedItems.length > 0) {
+            logHelper({logline: "order submitted at location " + this.state.orderedItems[0].vendor_id})
+            fetch("/orders", {
+                method: "POST",
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(this.state.orderedItems)
+            }).then(result => result.json())
+        }
     }
 
 

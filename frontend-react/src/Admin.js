@@ -11,6 +11,8 @@ class Admin extends React.Component {
         newHotdogName: "",
         newHotdogImgUrl: "",
         newHotdogPrice: 0,
+        menuItemsToDelete: [],
+        masterMenuItems: []
     }
 
     componentDidMount() {
@@ -18,6 +20,10 @@ class Admin extends React.Component {
             .then(res => res.json())
             .then(logItems => this.setState({logItems}))
             .then(ignored => console.log(this.state)); // remove this log statement at some point
+        fetch("/menu")
+            .then(res => res.json())
+            .then(masterMenuItems => this.setState({masterMenuItems}))
+
     }
 
     handleSelect = (eventKey) => {
@@ -74,6 +80,47 @@ class Admin extends React.Component {
         </Form>
     }
 
+    stageRemoveItem = (isChecked, id) => {
+        console.log("this is val: " + isChecked)
+        console.log("this is id: " + id)
+        const newRemoveItems = [...this.state.menuItemsToDelete]
+        if (!isChecked) {
+            this.setState({menuItemsToDelete: newRemoveItems.filter(ele => ele !== id)});
+        } else {
+            newRemoveItems.push(id);
+            this.setState({menuItemsToDelete: newRemoveItems});
+        }
+    }
+
+    removeMenuItems = () => {
+        console.log("this is to be removed: " + this.state.menuItemsToDelete )
+        logHelper({logline: "Admin deleted following menu items " + this.state.menuItemsToDelete})
+        fetch("/menu", {
+            method: "PUT",
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(this.state.menuItemsToDelete)
+        }).then(result => result.json())
+    }
+
+    showMenuItemRemoveForm() {
+        return <Form onSubmit={this.removeMenuItems}>
+            {this.state.masterMenuItems.map(menuItems => {
+                return <Form.Check
+                    onChange={(e) => this.stageRemoveItem(e.target.checked, e.target.id)}
+                    type="switch"
+                    id={menuItems.hotdog_id} // maybe don't duplicate id and key
+                    label={menuItems.hotdog_name}
+                    key={menuItems.hotdog_id} // maybe just need this?
+                />
+            })}
+            <Button variant="primary" type="submit">
+                Submit
+            </Button>
+        </Form>
+    }
+
     showAdminLogConsole() {
         return <p className="consoleLog">
             {this.state.logItems.map(item => <div>{item.log_timestamp + '\t' + item.log_line}</div>)}
@@ -87,10 +134,12 @@ class Admin extends React.Component {
                     <Nav.Link eventKey={1} onSelect={this.handleSelect}>Add Vendor</Nav.Link>
                     <Nav.Link eventKey={2} onSelect={this.handleSelect}>View Console</Nav.Link>
                     <Nav.Link eventKey={3} onSelect={this.handleSelect}>Add Menu Item</Nav.Link>
+                    <Nav.Link eventKey={4} onSelect={this.handleSelect}>Remove Menu Item</Nav.Link>
                 </Nav>
                 {this.state.tabKey === "1" && this.showNewVendorForm()}
                 {this.state.tabKey === "2" && this.showAdminLogConsole()}
                 {this.state.tabKey === "3" && this.showAddMenuItemForm()}
+                {this.state.tabKey === "4" && this.showMenuItemRemoveForm()}
             </div>
         )
     }

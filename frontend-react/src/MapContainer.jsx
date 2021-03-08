@@ -11,6 +11,7 @@ import Menu from "./Menu"
 }; */
 
 const image = "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
+const locationMarker = "http://maps.google.com/mapfiles/ms/icons/red.png";
 
 class MapContainer extends React.Component {
 
@@ -56,6 +57,22 @@ class MapContainer extends React.Component {
             .then(data => this.setState({locations: data}))
     };
 
+    componentWillMount(){
+        if (navigator.geolocation) {
+            navigator.geolocation.watchPosition((position) => {
+              this.setState({
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+              });
+            },
+            (error) => console.log(error),
+        
+            );
+          } else {
+            alert('Geolocation is not available')
+          }
+        }
+
     renderMarkers() {
         return this.state.locations.map((locations, i) => {
             return <Marker
@@ -69,6 +86,10 @@ class MapContainer extends React.Component {
     };
 
     render() {
+
+        const { pos } = this.props;
+        const { lat, lng } = this.state;
+
         return (
             <div className="theMap">
                 <Map
@@ -82,6 +103,13 @@ class MapContainer extends React.Component {
 
                     {this.renderMarkers()}
 
+                    {<Marker
+                    
+                    position={{lat:this.state.lat, lng:this.state.lng }}
+                    icon={locationMarker}
+                    title="You Are Here!"
+                    />}
+
                     <InfoWindow
                         marker={this.state.activeMarker}
                         onClose={this.onInfoWindowClose}
@@ -92,8 +120,6 @@ class MapContainer extends React.Component {
                         </div>
                     </InfoWindow>
                 </Map>
-                {/*need this?*/}
-                <button onClick={this.showModal} onHide={this.showModal}>Display Modal</button>
 
                 <Modal show={this.state.showingModal}>
                     <Modal.Header>
