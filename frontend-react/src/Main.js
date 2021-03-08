@@ -52,18 +52,19 @@ class Main extends React.Component {
         return (
             <HashRouter>
                 <div className="container">
-                <Popup trigger={<button className="login"> Login</button>} position="left center">
-                   <div className="logout">
-                {this.state.user ? (<LogOut />) : (<Login />)}
-                </div>
-                 </Popup>
+                
                     <h1 className="title">Dog Eat Dog World</h1>
                     <ButtonGroup className="buttonGroup">
                         <Button variant="primary" onClick={() => this.handleOnClick("customer")}>Customer</Button>
                         <Button variant="info" onClick={() => this.handleOnClick("vendor")}>Vendor</Button>
                         <Button variant="success" onClick={() => this.handleOnClick("admin")}>Admin</Button>
+                        <Popup trigger={<button className="login"> Login</button>} position="left center">
+                   <div className="logout">
+                {this.state.user ? (<LogOut />) : (<Login />)}
+                </div>
+                 </Popup>
                     </ButtonGroup>
-                    <ul className="header">
+                    <ul className="headerMenu">
                         <li><NavLink exact to="/">Home</NavLink></li>
                         <li><NavLink to="/menu">Menu</NavLink></li>
                         <li><NavLink to="/contact">Contact</NavLink></li>
@@ -73,7 +74,7 @@ class Main extends React.Component {
                         {this.state.selectedView === "vendor" && <li><NavLink to="/vendor">Vendor</NavLink></li>
                         }
                     </ul>
-                    <div className="content">
+                    <div className="contents">
                         <Route exact path="/" component={ Home }></Route>
                         <Route path="/menu" component={ Menu }></Route>
                         <Route path="/contact" component={ Contact }></Route>
