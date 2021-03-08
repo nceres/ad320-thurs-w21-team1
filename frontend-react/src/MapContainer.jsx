@@ -120,8 +120,6 @@ class MapContainer extends React.Component {
                         </div>
                     </InfoWindow>
                 </Map>
-                {/*need this?*/}
-                <button onClick={this.showModal} onHide={this.showModal}>Display Modal</button>
 
                 <Modal show={this.state.showingModal}>
                     <Modal.Header>
