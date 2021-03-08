@@ -80,13 +80,12 @@ class Menu extends React.Component {
 
     render() {
         return (
-            <div>
+            <div id="carddecdiv">
                 <CardDeck>
                     {this.state.menuItems.map(menuItem =>
                         <div key={menuItem.hotdog_id}>
                             <Card>
                                 <Card.Img
-                                    style={{width: "18rem"}}
                                     variant="top"
                                     src="https://i.pinimg.com/originals/5d/c6/38/5dc63889a0b76b9a0ce4bc1eb291ae00.png">
                                 </Card.Img>
