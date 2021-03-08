@@ -40,9 +40,9 @@ class Admin extends React.Component {
         return <form onSubmit={this.createNewVendor}>
             <label>
                 <center>New Vendor Account<br/><br/></center>
-                Vendor Name: <input type="text"/>
-                Vendor email: <input type="text"/><br/><br/>
-                <input type="button" value="Submit"/>
+                Vendor Name: <input type="text" className="userInput" /><br></br>
+                Vendor email: <input type="text" className="userInput" /><br/><br/>
+                <input type="button" value="Submit" className="userInput" />
             </label>
         </form>
     }
@@ -66,13 +66,13 @@ class Admin extends React.Component {
     showAddMenuItemForm() {
         return <Form onSubmit={this.addMenuItem}>
             <Form.Label>Hotdog Name</Form.Label>
-            <Form.Control placeholder="some name" onChange={(e) => this.setState({newHotdogName: e.target.value})}
+            <Form.Control placeholder="some name" className="userInput" onChange={(e) => this.setState({newHotdogName: e.target.value})}
                           required/>
             <Form.Label>Image Url</Form.Label>
-            <Form.Control placeholder="some name" onChange={(e) => this.setState({newHotdogImgUrl: e.target.value})}
+            <Form.Control placeholder="some name" className="userInput" onChange={(e) => this.setState({newHotdogImgUrl: e.target.value})}
                           required/>
             <Form.Label>Price</Form.Label>
-            <Form.Control type="text" placeholder="decimal format, e.g. 1.20"
+            <Form.Control type="text" placeholder="decimal format, e.g. 1.20" className="userInput"
                           onChange={(e) => this.setState({newHotdogPrice: e.target.value})} required/>
             <Button variant="primary" type="submit">
                 Submit

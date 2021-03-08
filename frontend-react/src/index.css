@@ -5,6 +5,17 @@ body {
     width: 100%;
 }
 
+form, input, button, .vendorBar {
+    background-color: #080808;
+    color: #c5c4c4;
+}
+
+.userInput, .nav-link {
+    background-color: #080808;
+    color: #c5c4c4; 
+    max-width: 300px;
+}
+
 h1, h2, p, ul, li {
     font-family: sans-serif;
 }
@@ -107,7 +118,7 @@ ul.headerMenu li a {
 
 .consoleLog {
     width: 850px;
-    height: 250px;
+    height: 450px;
     overflow-y: scroll;
     background-color: #080808;
     color: peachpuff;
@@ -167,7 +178,6 @@ input[type='text'], input[type='password'] {
     margin-bottom: 10px;
     box-sizing: border-box;
     padding: 4px 5px;
-    background: #fff;
     border: 1px solid #d0d0d0;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;

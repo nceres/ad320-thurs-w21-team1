@@ -47,8 +47,8 @@ class Login extends Component {
             ( <div className="Error"> {this.state.fireErrors} </div> ) : null;
 
         let submitBtn = this.state.loginBtn ? 
-            (<input className="loginBtn" type="submit" onClick={this.login} value="Login" />) : 
-            (<input className="loginBtn" type="submit" onClick={this.register} value="Register" />);
+            (<input className="loginBtn userInput" type="submit" onClick={this.login} value="Login" />) : 
+            (<input className="loginBtn userInput" type="submit" onClick={this.register} value="Register" />);
 
         let login_register = this.state.loginBtn ?
             (<button className="registerBtn" onClick={() => this.getAction('reg')}>Register</button>) : 
@@ -62,17 +62,17 @@ class Login extends Component {
                     <form>
                         <lable>
                             Email: 
-                        <input type="text" 
+                        <input type="text" className="userInput"
                         value={this.state.email} 
                         onChange={this.handleChange} 
                         name="email" /><br></br>
                         </lable>
                         <lable>
                             Password: 
-                        <input type="password" 
+                        <input type="password" className="userInput"
                         value={this.state.password} 
                         onChange={this.handleChange} 
-                        name="password" />
+                        name="password" /><br></br>
                         </lable>
                         {submitBtn}
                     </form>
