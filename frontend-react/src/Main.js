@@ -58,11 +58,11 @@ class Main extends React.Component {
                         <Button variant="primary" onClick={() => this.handleOnClick("customer")}>Customer</Button>
                         <Button variant="info" onClick={() => this.handleOnClick("vendor")}>Vendor</Button>
                         <Button variant="success" onClick={() => this.handleOnClick("admin")}>Admin</Button>
-                        <Popup trigger={<button className="login"> Login</button>} position="left center">
-                   <div className="logout">
-                {this.state.user ? (<LogOut />) : (<Login />)}
-                </div>
-                 </Popup>
+                            <Popup trigger={<button className="login"> Login</button>} position="left center">
+                            <div className="logout">
+                             {this.state.user ? (<LogOut />) : (<Login />)}
+                             </div>
+                            </Popup>
                     </ButtonGroup>
                     <ul className="headerMenu">
                         <li><NavLink exact to="/">Home</NavLink></li>
