@@ -86,9 +86,8 @@ class Menu extends React.Component {
                     {this.state.menuItems.map(menuItem =>
                         <div key={menuItem.hotdog_id}>
                             <Card>
-                                <Card.Img
-                                    variant="top"
-                                    src="https://i.pinimg.com/originals/5d/c6/38/5dc63889a0b76b9a0ce4bc1eb291ae00.png">
+                                <Card.Img id={menuItem.hotdog_id}                                   
+                                   src={menuItem.hotdog_image}>
                                 </Card.Img>
                                 <Card.Body id={menuItem.hotdog_id}>
                                     <Card.Title>{menuItem.hotdog_name}</Card.Title>
