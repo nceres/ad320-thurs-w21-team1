@@ -110,6 +110,7 @@ CREATE TABLE IF NOT EXISTS `HotdogCart`.`Customer_Order` (
   `date` DATETIME NULL COMMENT 'order date',
   `location_id` INT NOT NULL COMMENT 'foreign key',
   `person_id` INT NOT NULL COMMENT 'foreign key',
+  `complete` BOOLEAN NOT NULL DEFAULT 0,
   PRIMARY KEY (`order_id`),
   INDEX `fk_Order_Location1_idx` (`location_id` ASC) VISIBLE,
   INDEX `person_id_idx` (`person_id` ASC) VISIBLE,
@@ -222,13 +223,13 @@ ENGINE = InnoDB;
 
 
 # Hotdog table
-INSERT INTO Hotdog VALUES (null, "Classic", "none", 1.50);
-INSERT INTO Hotdog VALUES (null, "Seattle dog", "none", 2.00);
-INSERT INTO Hotdog VALUES (null, "Frankfurter", "none", 3.00);
-INSERT INTO Hotdog VALUES (null, "Chicago dog", "none", 3.00);
-INSERT INTO Hotdog VALUES (null, "Corn dog", "none", 1.50);
-INSERT INTO Hotdog VALUES (null, "Bratwurst", "none", 3.00);
-INSERT INTO Hotdog VALUES (null, "Montreal dog", "none", 4.00);
+INSERT INTO Hotdog VALUES (null, "Classic", "Classic.png", 1.50);
+INSERT INTO Hotdog VALUES (null, "Seattle dog", "Seattle_dog.png", 2.00);
+INSERT INTO Hotdog VALUES (null, "Frankfurter", "Frankfurter.png", 3.00);
+INSERT INTO Hotdog VALUES (null, "Chicago dog", "Chicago_dog.png", 3.00);
+INSERT INTO Hotdog VALUES (null, "Corn dog", "Corn_dog.png", 1.50);
+INSERT INTO Hotdog VALUES (null, "Bratwurst", "Bratwurst.png", 3.00);
+INSERT INTO Hotdog VALUES (null, "Montreal dog", "Montreal_dog.png", 4.00);
 
 
 # Location table
@@ -265,9 +266,9 @@ INSERT INTO Role_Permission VALUES (NULL, 3, 1);
 
 
 # Order table
-INSERT INTO `Customer_Order` VALUES (NULL, "2020-12-31 23:59:00", 5, 3);
-INSERT INTO `Customer_Order` VALUES (NULL, "2021-01-11 19:03:01", 2, 9);
-INSERT INTO `Customer_Order` VALUES (NULL, "2021-02-13 12:23:45", 1, 4);
+INSERT INTO `Customer_Order` VALUES (NULL, "2020-12-31 23:59:00", 5, 3, TRUE);
+INSERT INTO `Customer_Order` VALUES (NULL, "2021-01-11 19:03:01", 2, 9, TRUE);
+INSERT INTO `Customer_Order` VALUES (NULL, "2021-02-13 12:23:45", 1, 4, FALSE);
 
 # Order_Items table
 INSERT INTO Order_Items VALUES (NULL, 2, 1, 3);
