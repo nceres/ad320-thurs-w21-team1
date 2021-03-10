@@ -11,10 +11,38 @@ body {
              0.3em 0.3em 1em rgba(230, 230, 231, 0.3);
 }
 
+@media (min-width: 280px) {
+.modal-dialog {
+    max-width: 1200px;
+    margin-left: 0%;
+}
+
+
+.card-img-top {
+    width: 98%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 260px;
+    height: 260px;
+}
+
+.card {
+    width: 94%;
+    padding: 5px;
+
+}
+
+#carddecdiv {
+    width: 98%;
+    display:contents;
+}
+
+}
 form, input, button, .vendorBar {
     background-color: #080808;
     color: #c5c4c4;
 }
+
 
 .userInput, .nav-link {
     background-color: #080808;
@@ -31,6 +59,7 @@ font-size: 100%;
 
 .headerMenu {
     width: 100%;
+    text-align: center;
 }
 ul.headerMenu li {
     display: inline;
@@ -85,15 +114,6 @@ ul.headerMenu li a {
     width: 100%;
     padding: 0px;
     margin: 0;
-}
-
-.card {
-    width: 100%;
-}
-
-#carddecdiv {
-    width: 25%;
-    display:contents;
 }
 
 .buttonGroup {
