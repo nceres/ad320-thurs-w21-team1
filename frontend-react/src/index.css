@@ -17,6 +17,18 @@ body {
     margin-left: 0%;
 }
 
+.modal-content {
+    max-width: 80%;
+    background-color: #080808;
+    color: #c5c4c4;
+}
+
+.btn-outline-dark, .card-footer, .card-body, form, input, button, .vendorBar {
+    background-color: #080808;
+    color: #c5c4c4;
+}
+
+
 
 .card-img-top {
     width: 98%;
@@ -38,12 +50,7 @@ body {
 }
 
 }
-form, input, button, .vendorBar {
-    background-color: #080808;
-    color: #c5c4c4;
-}
-
-
+ 
 .userInput, .nav-link {
     background-color: #080808;
     color: #c5c4c4; 
