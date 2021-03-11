@@ -31,21 +31,30 @@ class Admin extends React.Component {
         console.log(this.state.tabKey === "1")
     }
 
-    createNewVendor = () => {
-        logHelper({adminAction: "Admin created a new vendor!"})
-        console.log("vendor form created");
+    createNewVendor = (event) => {
+        logHelper({adminAction:"Admin created a new vendor!"})
+        event.preventDefault()
+        console.log(event.target[0].value)
+        console.log(event.target[1].value)
+        console.log(event.target[2].value)        
+        console.log("vendor form created")
     }
 
     showNewVendorForm() {
         return <form onSubmit={this.createNewVendor}>
             <label>
                 <center>New Vendor Account<br/><br/></center>
-                Vendor Name: <input type="text" className="userInput" /><br></br>
-                Vendor email: <input type="text" className="userInput" /><br/><br/>
-                <input type="button" value="Submit" className="userInput" />
+            Vendor Name:
+            <input type="text"name="vendorName"ref={node => (this.inputNode = node)}/>
+            Vendor Email:
+            <input type="text"email="vendorEmail"ref={node => (this.inputNode = node)}/>
+            Vendor Password:
+            <input type="password"password="vendorPassword"ref={node => (this.inputNode = node)}/>
             </label>
+            <button type="submit">Submit</button>
         </form>
     }
+       
 
     addMenuItem = () => {
         logHelper({adminAction: "Admin created a new hotdog!"}) // TODO add some details here
