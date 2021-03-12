@@ -2,19 +2,29 @@ var express = require('express');
 var router = express.Router();
 const queryUtil = require("../db-utils/queryUtil");
 
+
+
 // function to get date
 getDate = () => new Date().toISOString().slice(0, 19).replace('T', ' ');
 
 // get all orders
-router.get('/', function(req, res) {
+router.get('/', function (req, res) {
     queryUtil.query("SELECT * FROM Customer_Order")
-    .then(result => res.send(result));
+        .then(result => res.send(result));
+});
+
+// change order status
+router.get('/status/:id', function (req, res) {
+    var order_id = req.params.id
+    console.log(order_id)
+    queryUtil.query("UPDATE hotdogcart.customer_order SET complete = not complete WHERE order_id = " + parseInt(req.params.id))
+        .then(result => res.send(result))
 });
 
 // get orders for a specific vendor/location
-router.get('/:id', function(req, res) {
+router.get('/:id', function (req, res) {
     queryUtil.query("SELECT * FROM Customer_Order WHERE location_id = " + parseInt(req.params.id))
-    .then(result => res.send(result));
+        .then(result => res.send(result));
 });
 
 // place an order with a vendor
