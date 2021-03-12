@@ -4,11 +4,11 @@ import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Menu from "./Menu"
 
-/* const mapStyles = {
+const mapStyles = {
     position: 'absolute',
-    width: 800,
+    width: 1114,
     height: 400
-}; */
+};
 
 const image = "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
 const locationMarker = "http://maps.google.com/mapfiles/ms/icons/red.png";
@@ -86,17 +86,13 @@ class MapContainer extends React.Component {
     };
 
     render() {
-
-        const { pos } = this.props;
-        const { lat, lng } = this.state;
-
         return (
             <div className="theMap">
                 <Map
                     google={this.props.google}
                     onClick={this.onMapClicked}
                     zoom={10}
-                    //style={mapStyles}
+                    style={mapStyles}
                     initialCenter={{lat: 47.62111, lng: -122.34930}}
                     resetBoundsOnResize={true}
                 >
