@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Map, GoogleApiWrapper, Marker, InfoWindow} from 'google-maps-react';
+import React, { Component } from 'react';
+import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Menu from "./Menu"
@@ -25,7 +25,7 @@ class MapContainer extends React.Component {
 
     showModal = () => {
         console.log("showmodal executed")
-        this.setState({showingModal: !this.state.showingModal})
+        this.setState({ showingModal: !this.state.showingModal })
     }
 
     onMarkerClick = (props, marker) => {
@@ -54,41 +54,36 @@ class MapContainer extends React.Component {
     componentDidMount() {
         fetch("/vendors")
             .then(res => res.json())
-            .then(data => this.setState({locations: data}))
-    };
-
-    componentWillMount(){
+            .then(data => this.setState({ locations: data }))
         if (navigator.geolocation) {
             navigator.geolocation.watchPosition((position) => {
-              this.setState({
-                lat: position.coords.latitude,
-                lng: position.coords.longitude,
-              });
+                this.setState({
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                });
             },
-            (error) => console.log(error),
-        
+                (error) => console.log(error),
+
             );
-          } else {
+        } else {
             alert('Geolocation is not available')
-          }
         }
+    };
+
 
     renderMarkers() {
         return this.state.locations.map((locations, i) => {
             return <Marker
                 key={i}
                 id={locations.location_id}
-                position={{lat: locations.latitude, lng: locations.longitude}}
+                position={{ lat: locations.latitude, lng: locations.longitude }}
                 name={locations.name}
                 icon={image}
-                onClick={this.onMarkerClick}/>
+                onClick={this.onMarkerClick} />
         })
     };
 
     render() {
-
-        const { pos } = this.props;
-        const { lat, lng } = this.state;
 
         return (
             <div className="theMap">
@@ -97,17 +92,17 @@ class MapContainer extends React.Component {
                     onClick={this.onMapClicked}
                     zoom={10}
                     //style={mapStyles}
-                    initialCenter={{lat: 47.62111, lng: -122.34930}}
+                    initialCenter={{ lat: 47.62111, lng: -122.34930 }}
                     resetBoundsOnResize={true}
                 >
 
                     {this.renderMarkers()}
 
                     {<Marker
-                    
-                    position={{lat:this.state.lat, lng:this.state.lng }}
-                    icon={locationMarker}
-                    title="You Are Here!"
+
+                        position={{ lat: this.state.lat, lng: this.state.lng }}
+                        icon={locationMarker}
+                        title="You Are Here!"
                     />}
 
                     <InfoWindow
