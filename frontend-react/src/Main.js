@@ -15,18 +15,15 @@ import Contact from './Contact';
 import MapContainer from './MapContainer';
 import Admin from './Admin';
 import Vendor from './Vendor';
+import logHelper from "./utils";
 
 class Main extends React.Component {
-
-    constructor(){
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-          user: null
+            user: {id: -1, role_name: "customer"},
+            selectedView: "Customer"
         }
-      }
-    
-    state = {
-        selectedView: "customer"
     }
 
     handleOnClick = (viewClicked) => {
@@ -34,25 +31,39 @@ class Main extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.state.selectedView);
         this.authListener();
     }
 
     authListener(){
         fire.auth().onAuthStateChanged((user) => {
           if(user){
-            this.setState({user});
-          }else{
+              fetch("/users/" + user.email)
+                  .then(res => res.json())
+                  .then(user => {
+                      logHelper("user with email " + user.email + " logged in")
+                      this.setState({user})
+                  })
+          } else {
             this.setState({user:null});
           }
         });
       }
 
+
+    currentUserRoleName = () => {
+        if (this.state.user[0]) {
+            return this.state.user[0].role_name
+
+        } else {
+            return "Customer";
+        }
+
+    }
+
     render() {
         return (
             <HashRouter>
                 <div className="container">
-                
                     <h1 className="title">Dog Eat Dog World</h1>
                     <ButtonGroup className="buttonGroup">
                         <Button variant="primary" onClick={() => this.handleOnClick("customer")}>Customer</Button>
@@ -69,9 +80,9 @@ class Main extends React.Component {
                         <li><NavLink to="/menu">Menu</NavLink></li>
                         <li><NavLink to="/contact">Contact</NavLink></li>
                         <li><NavLink to="/mapContainer">Map</NavLink></li>
-                        {this.state.selectedView === "admin" && <li><NavLink to="/admin">Admin</NavLink></li>
+                        {this.currentUserRoleName() === "Admin" && <li><NavLink to="/admin">Admin</NavLink></li>
                         }
-                        {this.state.selectedView === "vendor" && <li><NavLink to="/vendor">Vendor</NavLink></li>
+                        {this.currentUserRoleName() === "Vendor" && <li><NavLink to="/vendor">Vendor</NavLink></li>
                         }
                     </ul>
                     <div className="contents">
