@@ -115,7 +115,7 @@ class MapContainer extends React.Component {
                     </InfoWindow>
                 </Map>
 
-                <Modal show={this.state.showingModal} onHide={this.showModal}>
+                <Modal show={this.state.showingModal}>
                     <Modal.Header>
                         <Modal.Title>This is going to be a menu!</Modal.Title>
                     </Modal.Header>
