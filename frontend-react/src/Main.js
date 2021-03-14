@@ -15,18 +15,16 @@ import Contact from './Contact';
 import MapContainer from './MapContainer';
 import Admin from './Admin';
 import Vendor from './Vendor';
+import logHelper from './utils'
 
 class Main extends React.Component {
 
-    constructor(){
+    constructor() {
         super();
         this.state = {
-          user: null
+            user: [{role_name: "Customer"}],
+            selectedView: "Customer"
         }
-      }
-    
-    state = {
-        selectedView: "customer"
     }
 
     handleOnClick = (viewClicked) => {
@@ -38,49 +36,77 @@ class Main extends React.Component {
         this.authListener();
     }
 
-    authListener(){
+    authListener() {
         fire.auth().onAuthStateChanged((user) => {
-          if(user){
-            this.setState({user});
-          }else{
-            this.setState({user:null});
-          }
+            if (user) {
+                fetch("/users/" + user.email)
+                    .then(res => res.json())
+                    .then(user => {
+                        logHelper("user with email " + user.email + " logged in")
+                        this.setState({user})
+                    })
+            } else {
+                this.setState({user:null});
+            }
         });
-      }
+    }
+
+    validateUser = () => {
+        return this.state.user && this.state.user.length > 0;
+    }
+
+    getUserOrDefault = () => {
+        if (this.validateUser()) {
+            return this.state.user[0];
+        } else {
+            return {role_name: "Customer"}
+        }
+    }
+
+    currentUserRoleName = () => {
+        if (this.validateUser()) {
+            return this.state.user[0].role_name
+
+        } else {
+            return "Customer";
+        }
+
+    }
 
     render() {
         return (
             <HashRouter>
                 <div className="container">
-                
+
                     <h1 className="title">Dog Eat Dog World</h1>
                     <ButtonGroup className="buttonGroup">
                         <Button variant="primary" onClick={() => this.handleOnClick("customer")}>Customer</Button>
                         <Button variant="info" onClick={() => this.handleOnClick("vendor")}>Vendor</Button>
                         <Button variant="success" onClick={() => this.handleOnClick("admin")}>Admin</Button>
-                            <Popup trigger={<button className="login"> Login</button>} position="left center">
+                        <Popup trigger={<button className="login"> Login</button>} position="left center">
                             <div className="logout">
-                             {this.state.user ? (<LogOut />) : (<Login />)}
-                             </div>
-                            </Popup>
+                                {this.state.user ? (<LogOut/>) : (<Login/>)}
+                            </div>
+                        </Popup>
                     </ButtonGroup>
                     <ul className="headerMenu">
                         <li><NavLink exact to="/">Home</NavLink></li>
                         <li><NavLink to="/menu">Menu</NavLink></li>
                         <li><NavLink to="/contact">Contact</NavLink></li>
                         <li><NavLink to="/mapContainer">Map</NavLink></li>
-                        {this.state.selectedView === "admin" && <li><NavLink to="/admin">Admin</NavLink></li>
+                        {this.getUserOrDefault().role_name === "Admin" && <li><NavLink to="/admin">Admin</NavLink></li>
                         }
-                        {this.state.selectedView === "vendor" && <li><NavLink to="/vendor">Vendor</NavLink></li>
+                        {this.getUserOrDefault().role_name === "Vendor" && <li><NavLink to="/vendor">Vendor</NavLink></li>
                         }
                     </ul>
                     <div className="contents">
-                        <Route exact path="/" component={ Home }></Route>
-                        <Route path="/menu" component={ Menu }></Route>
-                        <Route path="/contact" component={ Contact }></Route>
-                        <Route path="/mapContainer" component={ MapContainer }></Route>
-                        <Route path="/admin" component={ Admin }></Route>
-                        <Route path="/vendor" component={ Vendor }></Route>
+                        <Route exact path="/" component={() => <Home user={this.getUserOrDefault()}/>}></Route>
+                        <Route path="/menu" component={() => <Menu user={this.getUserOrDefault()}/>}></Route>
+                        <Route path="/contact" component={Contact}></Route>
+                        <Route path="/mapContainer"
+                               component={() => <MapContainer user={this.getUserOrDefault()}/>}></Route>
+                        <Route path="/admin" component={() => <Admin user={this.getUserOrDefault()}/>}></Route>
+                        <Route path="/vendor" component={() => <Vendor user={this.getUserOrDefault()}/>}></Route>
                     </div>
                 </div>
             </HashRouter>
