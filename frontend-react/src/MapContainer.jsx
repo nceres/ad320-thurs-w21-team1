@@ -5,9 +5,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Menu from "./Menu"
 
 const mapStyles = {
-    position: 'absolute',
-    width: 1114,
-    height: 400
+    width: '80%',
+    height: '70%'
 };
 
 const image = "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
