@@ -9,4 +9,9 @@ router.get('/', function(req, res, next) {
   .then(result => res.send(result));
 });
 
+router.get('/:email', function(req, res) {
+  queryUtil.query("SELECT person_id, role_name from Person JOIN Person_Role ON Person.role_id = Person_Role.person_role_id WHERE email = \'" + req.params.email + "\'")
+      .then(result => res.send(result));
+});
+
 module.exports = router;
