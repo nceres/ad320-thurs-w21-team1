@@ -39,7 +39,7 @@ router.post('/', function (req, res) {
     const vendorId = ordersArray[0].vendor_id;
     // we know that there is at least one order, so we can make the Customer_Order with a single element of the list.
     queryUtil.query("INSERT INTO Customer_Order VALUES" +
-        " (NULL, \'" + queryUtil.getDate() + "\', " + vendorId + ", 1)")
+        " (NULL, \'" + queryUtil.getDate() + "\', " + vendorId + ", 1, false)")
         .catch(err => console.log("error inserting order " + err))
         .finally(ignored => {
             queryUtil.query("SELECT MAX(order_id) AS maxId FROM Customer_Order")

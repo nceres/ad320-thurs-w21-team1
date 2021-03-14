@@ -255,6 +255,8 @@ INSERT INTO Person VALUES (NULL, "Marty", "Sheen", "2223 6th Ave W, Seattle", "m
 INSERT INTO Person VALUES (NULL, "Lesly", "Blunt", "11343 256th Ave Sw, Kent", "lblunt@outlook.com", "253-113-1003", "4", 2, "password");
 INSERT INTO Person VALUES (NULL, "Nathaniel", "Piletski", "1601 5th Ave N Seattle", "npiletski@mail.com", "206-885-9008", "1", 1, "password");
 INSERT INTO Person VALUES (NULL, "Cathy", "Noel", "11061 248th Ave NE, Redmond", "cnoel@gmail.com", "425-733-9024", "5", 3, "password");
+INSERT INTO Person VALUES (NULL, "my", "admin", "11061 248th Ave NE, Redmond", "dogeatadmin@gmail.com", "425-733-9024", "3", 3, "password");
+
 
 # Permission table
 INSERT INTO Permission VALUES (NULL, "all access");
