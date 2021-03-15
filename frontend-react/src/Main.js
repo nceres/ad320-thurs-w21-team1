@@ -56,6 +56,8 @@ class Main extends React.Component {
     }
 
     getUserOrDefault = () => {
+        console.log("this is the current user")
+        console.log(this.state.user)
         if (this.validateUser()) {
             return this.state.user[0];
         } else {
@@ -63,15 +65,6 @@ class Main extends React.Component {
         }
     }
 
-    currentUserRoleName = () => {
-        if (this.validateUser()) {
-            return this.state.user[0].role_name
-
-        } else {
-            return "Customer";
-        }
-
-    }
 
     render() {
         return (

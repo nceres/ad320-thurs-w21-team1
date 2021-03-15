@@ -86,30 +86,38 @@ class Menu extends React.Component {
                     {this.state.menuItems.map(menuItem =>
                         <div key={menuItem.hotdog_id}>
                             <Card>
-                                <Card.Img id={menuItem.hotdog_id}                                   
-                                   src={menuItem.hotdog_image}>
+                                <Card.Img id={menuItem.hotdog_id}
+                                          src={menuItem.hotdog_image}>
                                 </Card.Img>
                                 <Card.Body id={menuItem.hotdog_id}>
                                     <Card.Title>{menuItem.hotdog_name}</Card.Title>
                                     {this.numberOrdered(menuItem.hotdog_id) !== 0 &&
                                     <Card.Text>number in cart: {this.numberOrdered(menuItem.hotdog_id)}</Card.Text>
                                     }
-                                    <Button variant="outline-dark"
-                                            onClick={() => this.handleIncrement(menuItem.hotdog_id, menuItem.hotdog_price)}>
-                                        +
-                                    </Button>
-                                    <Button variant="outline-dark"
-                                            onClick={() => this.handleDecrement(menuItem.hotdog_id, menuItem.hotdog_price)}>
-                                        -
-                                    </Button>
+                                    {
+                                        this.props.vendorId &&
+                                        <div>
+                                            <Button variant="outline-dark"
+                                                    onClick={() => this.handleIncrement(menuItem.hotdog_id, menuItem.hotdog_price)}>
+                                                +
+                                            </Button>
+                                            <Button variant="outline-dark"
+                                                    onClick={() => this.handleDecrement(menuItem.hotdog_id, menuItem.hotdog_price)}>
+                                                -
+                                            </Button>
+                                        </div>
+
+                                    }
                                 </Card.Body>
                                 <Card.Footer>${menuItem.hotdog_price}</Card.Footer>
                             </Card>
                         </div>
                     )}
                 </CardDeck>
-                <Button variant="primary" onClick={this.onSubmit}> Submit your order!
-                    ${this.state.orderTotal.toFixed(2)} </Button>
+                {
+                    this.props.vendorId && <Button variant="primary" onClick={this.onSubmit}> Submit your order!
+                        ${this.state.orderTotal.toFixed(2)} </Button>
+                }
             </div>
         );
     }
