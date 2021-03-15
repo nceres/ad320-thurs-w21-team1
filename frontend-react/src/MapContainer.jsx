@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
-import Modal from "react-bootstrap/Modal";
+import React, {Component} from 'react';
+import {Map, GoogleApiWrapper, Marker} from 'google-maps-react';
+import {Modal, Button} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Menu from "./Menu"
+import InfoWindowWrapper from "./InfoWindowWrapper"
 
 const mapStyles = {
     width: '80%',
     height: '70%'
 };
 
-const image = "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
 const locationMarker = "http://maps.google.com/mapfiles/ms/icons/red.png";
 
 class MapContainer extends React.Component {
@@ -24,7 +24,7 @@ class MapContainer extends React.Component {
 
     showModal = () => {
         console.log("showmodal executed")
-        this.setState({ showingModal: !this.state.showingModal })
+        this.setState({showingModal: !this.state.showingModal})
     }
 
     onMarkerClick = (props, marker) => {
@@ -32,15 +32,10 @@ class MapContainer extends React.Component {
             activeMarker: marker,
             selectedVendor: props,
             showingInfoWindow: true,
-            showingModal: true
         })
+        console.log(this.state.selectedVendor)
     };
 
-    onInfoWindowClose = () =>
-        this.setState({
-            activeMarker: null,
-            showingInfoWindow: false
-        });
 
     onMapClicked = () => {
         if (this.state.showingInfoWindow)
@@ -53,16 +48,15 @@ class MapContainer extends React.Component {
     componentDidMount() {
         fetch("/vendors")
             .then(res => res.json())
-            .then(data => this.setState({ locations: data }))
+            .then(data => this.setState({locations: data}))
         if (navigator.geolocation) {
             navigator.geolocation.watchPosition((position) => {
-                this.setState({
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude,
-                });
-            },
+                    this.setState({
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude,
+                    });
+                },
                 (error) => console.log(error),
-
             );
         } else {
             alert('Geolocation is not available')
@@ -75,21 +69,28 @@ class MapContainer extends React.Component {
             return <Marker
                 key={i}
                 id={locations.location_id}
-                position={{ lat: locations.latitude, lng: locations.longitude }}
+                position={{lat: locations.latitude, lng: locations.longitude}}
                 name={locations.name}
-                icon={image}
-                onClick={this.onMarkerClick} />
+                icon={{url: "/cart.png", scaledSize: new window.google.maps.Size(50, 50)}}
+                onClick={this.onMarkerClick}
+                animation={window.google.maps.Animation.DROP}
+                draggable={true}
+            />
         })
     };
 
     render() {
         return (
-            <div className="theMap">
+            <div
+                style={{
+                    position: "relative",
+                    width: "100%",
+                    height: "500px"
+                }}>
                 <Map
                     google={this.props.google}
                     onClick={this.onMapClicked}
                     zoom={10}
-                    style={mapStyles}
                     initialCenter={{lat: 47.62111, lng: -122.34930}}
                     resetBoundsOnResize={true}
                 >
@@ -98,27 +99,33 @@ class MapContainer extends React.Component {
 
                     {<Marker
 
-                        position={{ lat: this.state.lat, lng: this.state.lng }}
+                        position={{lat: this.state.lat, lng: this.state.lng}}
                         icon={locationMarker}
                         title="You Are Here!"
                     />}
 
-                    <InfoWindow
+                    <InfoWindowWrapper
                         marker={this.state.activeMarker}
-                        onClose={this.onInfoWindowClose}
                         visible={this.state.showingInfoWindow}
                     >
                         <div>
-                            <h4>Vendor Name: {this.state.selectedVendor.name}</h4>
+                            <h4>{this.state.selectedVendor.name}</h4>
+                            <Button onClick={() => this.setState({
+                                showingModal: true,
+                                showingInfoWindow: false,
+                                activeMarker: null
+                            })}>
+                                Place Order!
+                            </Button>
                         </div>
-                    </InfoWindow>
+                    </InfoWindowWrapper>
                 </Map>
-
-                <Modal show={this.state.showingModal}>
+                <Modal show={this.state.showingModal} onHide={this.showModal}>
                     <Modal.Header>
-                        <Modal.Title>This is going to be a menu!</Modal.Title>
+                        <Modal.Title>You are viewing the menu for {this.state.selectedVendor.name}</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body><Menu vendorId={this.state.selectedVendor.id} showModal={this.showModal}></Menu></Modal.Body>
+                    <Modal.Body><Menu vendorId={this.state.selectedVendor.id}
+                                      showModal={this.showModal}></Menu></Modal.Body>
                     <Modal.Footer>
                         <button onClick={this.showModal}>Close Window</button>
                     </Modal.Footer>
