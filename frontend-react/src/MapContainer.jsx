@@ -5,11 +5,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Menu from "./Menu"
 import InfoWindowWrapper from "./InfoWindowWrapper"
 
-const mapStyles = {
-    width: '80%',
-    height: '70%'
-};
-
 const locationMarker = "http://maps.google.com/mapfiles/ms/icons/red.png";
 
 class MapContainer extends React.Component {
