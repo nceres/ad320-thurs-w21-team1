@@ -142,13 +142,6 @@ ul.headerMenu li a {
     padding: 5px;
 }
 
-.theMap {
-    height: 98%;
-    width: 100%;
-    border: 5px solid aqua;
-    padding-right: 5px;
-}
-
 .active {
     background-color: cornflowerblue;
 }
