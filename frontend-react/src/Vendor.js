@@ -27,10 +27,10 @@ class Vendor extends React.Component {
     showUpdateLocationForm() {
         return <Form onSubmit={this.updateVendorLocation}>
             <Form.Label>New Latitude</Form.Label>
-            <Form.Control type="text" placeholder="decimal format, e.g. 1.20" className="userInput"
+            <Form.Control type="text" placeholder="decimal format, e.g. 50.12345" className="userInput"
                           onChange={(e) => this.setState({newLatitude: e.target.value})} required/>
             <Form.Label>New Longitude</Form.Label>
-            <Form.Control type="text" placeholder="decimal format, e.g. 1.20" className="userInput"
+            <Form.Control type="text" placeholder="decimal format, e.g. 50.12345" className="userInput"
                           onChange={(e) => this.setState({newLongitude: e.target.value})} required/>
             <Button variant="primary" type="submit">
                 Submit
@@ -39,7 +39,7 @@ class Vendor extends React.Component {
     }
 
     updateVendorLocation = () => {
-        logHelper({adminAction: `User ${this.props.user.person_id} updated their cart location!`})
+        logHelper({logline: `Vendor user ${this.props.user.person_id} updated their cart location!`})
         const newLocation = {
             latitude: this.state.newLatitude,
             longitude: this.state.newLongitude

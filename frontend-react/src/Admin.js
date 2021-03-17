@@ -2,17 +2,24 @@ import React, {Component} from 'react';
 import {Form, Nav, Button} from 'react-bootstrap';
 import logHelper from "./utils";
 
-
 class Admin extends React.Component {
 
     state = {
         logItems: [],
         tabKey: "1",
+        // add new hotdog
         newHotdogName: "",
         newHotdogImgUrl: "",
         newHotdogPrice: 0,
+        // menu
         menuItemsToDelete: [],
-        masterMenuItems: []
+        masterMenuItems: [],
+        // add new vendor
+        newName: "",
+        newAddress: "",
+        newPhone: "",
+        newLatitude: 0,
+        newLongitude: 0
     }
 
     componentDidMount() {
@@ -31,31 +38,47 @@ class Admin extends React.Component {
         console.log(this.state.tabKey === "1")
     }
 
-    createNewVendor = (event) => {
-        logHelper({adminAction:"Admin created a new vendor!"})
-        event.preventDefault()
-        console.log(event.target[0].value)
-        console.log(event.target[1].value)
-        console.log(event.target[2].value)        
-        console.log("vendor form created")
+    showNewVendorForm() {
+        return <Form onSubmit={this.createNewVendor}>
+            <Form.Label>Location Name</Form.Label>
+            <Form.Control placeholder="address" className="userInput" onChange={(e) => this.setState({newName: e.target.value})}
+                          required/>
+            <Form.Label>Address</Form.Label>
+            <Form.Control placeholder="address" className="userInput" onChange={(e) => this.setState({newAddress: e.target.value})}
+                          required/>
+            <Form.Label>Phone Number</Form.Label>
+            <Form.Control placeholder="phone" className="userInput" onChange={(e) => this.setState({newPhone: e.target.value})}
+                          required/>
+            <Form.Label>Latitude</Form.Label>
+            <Form.Control type="text" placeholder="decimal format, e.g. 50.12345" className="userInput"
+                          onChange={(e) => this.setState({newLatitude: e.target.value})} required/>
+            <Form.Label>Longitude</Form.Label>
+            <Form.Control type="text" placeholder="decimal format, e.g. 50.12345" className="userInput"
+                          onChange={(e) => this.setState({newLongitude: e.target.value})} required/>
+            <Button variant="primary" type="submit">
+                Submit
+            </Button>
+        </Form>
     }
 
-    showNewVendorForm() {
-        return <form onSubmit={this.createNewVendor}>
-            <label>
-                <center>New Vendor Account<br/><br/></center>
-            Vendor Name:
-            <input type="text"name="vendorName"ref={node => (this.inputNode = node)}/>
-            Vendor Email:
-            <input type="text"email="vendorEmail"ref={node => (this.inputNode = node)}/>
-            Vendor Password:
-            <input type="password"password="vendorPassword"ref={node => (this.inputNode = node)}/>
-            </label>
-            <button type="submit">Submit</button>
-        </form>
+    createNewVendor = (event) => {
+        logHelper({adminAction: `Admin user ${this.props.user.person_id} added a new vendor!`})
+        const newVendor = {
+            name: this.state.newName,
+            address: this.state.newAddress,
+            phone: this.state.newPhone,
+            latitude: this.state.newLatitude,
+            longitude: this.state.newLongitude
+        }
+        fetch("/vendors", {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(newVendor)
+        }).then(result => result.json())
     }
        
-
     addMenuItem = () => {
         logHelper({adminAction: "Admin created a new hotdog!"}) // TODO add some details here
         const newHotDog = {
