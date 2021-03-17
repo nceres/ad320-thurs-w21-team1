@@ -42,8 +42,8 @@ router.put('/:id', function(req, res) {
 
 // update specified vendor location
 router.put('/:id/location', function(req, res) {
-    queryUtil.query("UPDATE location SET latitude = " + req.body.latitude + ", longitude = " + req.body.longitude + 
-        "WHERE location_id = "  + parseInt(req.params.id))
+    queryUtil.query("UPDATE location JOIN person ON location.location_id = person.location_id SET location.latitude = \'" + 
+        req.body.latitude + "\', location.longitude = \'" + req.body.longitude + "\' WHERE person.person_id = " + parseInt(req.params.id))
         .catch(err => console.log("error inserting vendor " + err))
         .finally(res.send("Vendor " + req.params.id + " location updated"));
 });
