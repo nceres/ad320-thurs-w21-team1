@@ -9,16 +9,17 @@ getDate = () => new Date().toISOString().slice(0, 19).replace('T', ' ');
 
 // get all orders
 router.get('/', function (req, res) {
-    queryUtil.query("SELECT * FROM Customer_Order")
+    queryUtil.query("SELECT order_id, DATE_FORMAT(date, '%M %d %Y %H-%m-%s') AS 'Date', location.name as 'Location', CONCAT(person.first_name, ' ', last_name) as 'Name', case complete when 0 then 'processing' else 'complete' end as 'Status' FROM hotdogcart.Customer_Order inner join hotdogcart.location using (location_id) inner join hotdogcart.person using (person_id)")
         .then(result => res.send(result));
 });
 
 // change order status
-router.get('/status/:id', function (req, res) {
-    var order_id = req.params.id
-    console.log(order_id)
-    queryUtil.query("UPDATE hotdogcart.customer_order SET complete = not complete WHERE order_id = " + parseInt(req.params.id))
-        .then(result => res.send(result))
+router.post('/change_status', async (req, res) => {
+    const order_id = req.body.order_id;
+    console.log(`req ${JSON.stringify(req.body)}`)
+    await queryUtil.query("UPDATE hotdogcart.customer_order SET complete = not complete WHERE order_id = " + parseInt(order_id));
+    const result = await queryUtil.query("SELECT * FROM Customer_Order WHERE order_id = " + parseInt(order_id));
+    res.send(result);
 });
 
 // get orders for a specific vendor/location

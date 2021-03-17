@@ -3,12 +3,16 @@ import { Form, Nav, Button } from 'react-bootstrap';
 
 
 
+
 class OrdersTable extends React.Component {
 
     state = {
         orders: [],
 
     }
+
+
+
 
     componentDidMount() {
         fetch('/orders')
@@ -20,15 +24,17 @@ class OrdersTable extends React.Component {
             })
     }
 
+
     onClickComplete(orderId) {
         console.log(`Clicked complete on id ${orderId}`)
-        fetch('/orders/status', {
+        fetch('/orders/change_status', {
             method: "POST",
             headers: {
                 'Content-type': 'application/json'
             },
-            body: JSON.stringify(orderId)
-        }).then(result => console.log(result))
+            body: JSON.stringify({ order_id: orderId })
+
+        })
 
 
     };
@@ -36,17 +42,17 @@ class OrdersTable extends React.Component {
 
 
     render() {
-
+        const cellStyle = { "border": "1px solid white" };
         if (!this.state.orders) {
             return;
         }
         const rows = this.state.orders.map(order => (
             <tr>
                 <td>{order.order_id}</td>
-                <td>{order.date}</td>
-                <td>{order.location_id}</td>
-                <td>{order.person_id}</td>
-                <td>{order.complete}</td>
+                <td>{order.Date}</td>
+                <td>{order.Location}</td>
+                <td>{order.Name}</td>
+                <td>{order.Status}</td>
                 <td><button onClick={() => this.onClickComplete(order.order_id)}>Complete</button></td>
             </tr>
         ));
@@ -54,9 +60,13 @@ class OrdersTable extends React.Component {
 
 
             <table style={{ "borderWidth": "1px", "border-spacing": "5px", 'borderColor': "#aaaaaa", 'borderStyle': 'solid' }}>
-                <tr><td>Order id</td><td>Date</td><td>Location</td><td>Customer</td><td>Status</td><td>Actions</td></tr>
+                <p className="Table-header">ORDERS</p>
+                <tr style={{ "border": "1px solid white" }}>
+                    <td>Order #</td><td>Date</td><td>Location</td><td>Customer</td><td>Status</td><td>Actions</td>
+                </tr>
                 {rows}
             </table>
+
 
         )
     }
