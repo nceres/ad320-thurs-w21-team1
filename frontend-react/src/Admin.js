@@ -62,7 +62,7 @@ class Admin extends React.Component {
     }
 
     createNewVendor = (event) => {
-        logHelper({adminAction: `Admin user ${this.props.user.person_id} added a new vendor!`})
+        logHelper({logline: `Admin user ${this.props.user.person_id} added a new vendor!`})
         const newVendor = {
             name: this.state.newName,
             address: this.state.newAddress,
@@ -80,7 +80,7 @@ class Admin extends React.Component {
     }
        
     addMenuItem = () => {
-        logHelper({adminAction: "Admin created a new hotdog!"}) // TODO add some details here
+        logHelper({logline: "Admin created a new hotdog!"})
         const newHotDog = {
             hotdog_name: this.state.newHotdogName,
             hotdog_image: this.state.newHotdogImgUrl,
@@ -125,8 +125,7 @@ class Admin extends React.Component {
     }
 
     removeMenuItems = () => {
-        console.log("this is to be removed: " + this.state.menuItemsToDelete )
-        logHelper({logline: "Admin deleted following menu items " + this.state.menuItemsToDelete})
+        logHelper({logline: "Admin with id: " + this.props.user.person_id + " deleted following menu items " + this.state.menuItemsToDelete})
         fetch("/menu", {
             method: "PUT",
             headers: {

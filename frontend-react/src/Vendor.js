@@ -22,7 +22,6 @@ class Vendor extends React.Component {
         fetch("/logging")
             .then(res => res.json())
             .then(logItems => this.setState({logItems}))
-            .then(ignored => console.log(this.state)); // remove this log statement at some point
     }
 
     showUpdateLocationForm() {

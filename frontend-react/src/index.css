@@ -197,6 +197,10 @@ ul.headerMenu li a {
     text-shadow: -1px -1px 0 rgba(0, 0, 0, 1);
 }
 
+.mainTitle {
+    color: #00B7FF;
+}
+
 .login_form > .body {
     background: rgb(247, 247, 247);;
     padding: 10px;

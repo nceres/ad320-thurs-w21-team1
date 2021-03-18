@@ -15,14 +15,12 @@ class OrdersTable extends React.Component {
         fetch('/orders')
             .then(res => {
                 res.json().then(body => {
-                    console.log(`body: ${JSON.stringify(body)}`);
                     this.setState({ orders: body });
                 });
             })
     }
 
     showOrderItems(orderId) {
-        console.log(`Clicked show items on id ${orderId}`)
         fetch(`/orders/${orderId}/order_items`).then(res => {
             res.json().then(orderItems => {
                 console.log(JSON.stringify(orderItems));

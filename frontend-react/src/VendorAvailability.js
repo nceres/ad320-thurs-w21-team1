@@ -7,7 +7,6 @@ class ToggleSwitch extends Component {
     }
     markUnavailable = () => {
         logHelper({logline:"Vendor marked self unavailable"})
-        console.log(this.props.user.person_id)
     }
     render() {
         return (
