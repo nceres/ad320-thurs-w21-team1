@@ -54,6 +54,7 @@ class Vendor extends React.Component {
         }).then(result => result.json())
     }
 
+    
     render() {
         return (
             <div>
