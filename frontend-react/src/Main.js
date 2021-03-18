@@ -15,7 +15,6 @@ import Contact from './Contact';
 import MapContainer from './MapContainer';
 import Admin from './Admin';
 import Vendor from './Vendor';
-import logHelper from './utils'
 
 class Main extends React.Component {
 
@@ -32,7 +31,6 @@ class Main extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.state.selectedView);
         this.authListener();
     }
 
@@ -42,7 +40,6 @@ class Main extends React.Component {
                 fetch("/users/" + user.email)
                     .then(res => res.json())
                     .then(user => {
-                        logHelper("user with email " + user.email + " logged in")
                         this.setState({user})
                     })
             } else {
@@ -56,8 +53,6 @@ class Main extends React.Component {
     }
 
     getUserOrDefault = () => {
-        console.log("this is the current user")
-        console.log(this.state.user)
         if (this.validateUser()) {
             return this.state.user[0];
         } else {
@@ -69,19 +64,15 @@ class Main extends React.Component {
     render() {
         return (
             <HashRouter>
+                <ButtonGroup className="login">
+                    <Popup trigger={<button className="login"> Login</button>} position="left center">
+                        <div className="logout">
+                            {this.state.user ? (<LogOut/>) : (<Login/>)}
+                        </div>
+                    </Popup>
+                </ButtonGroup>
                 <div className="container">
-
-                    <h1 className="title">Dog Eat Dog World</h1>
-                    <ButtonGroup className="buttonGroup">
-                        <Button variant="primary" onClick={() => this.handleOnClick("customer")}>Customer</Button>
-                        <Button variant="info" onClick={() => this.handleOnClick("vendor")}>Vendor</Button>
-                        <Button variant="success" onClick={() => this.handleOnClick("admin")}>Admin</Button>
-                        <Popup trigger={<button className="login"> Login</button>} position="left center">
-                            <div className="logout">
-                                {this.state.user ? (<LogOut/>) : (<Login/>)}
-                            </div>
-                        </Popup>
-                    </ButtonGroup>
+                    <h1 className="mainTitle">Dog Eat Dog World</h1>
                     <ul className="headerMenu">
                         <li><NavLink exact to="/">Home</NavLink></li>
                         <li><NavLink to="/menu">Menu</NavLink></li>
@@ -89,7 +80,7 @@ class Main extends React.Component {
                         <li><NavLink to="/mapContainer">Map</NavLink></li>
                         {this.getUserOrDefault().role_name === "Admin" && <li><NavLink to="/admin">Admin</NavLink></li>
                         }
-                        {this.getUserOrDefault().role_name === "Vendor" && <li><NavLink to="/vendor">Vendor</NavLink></li>
+                        {true && <li><NavLink to="/vendor">Vendor</NavLink></li>
                         }
                     </ul>
                     <div className="contents">

@@ -16,8 +16,7 @@ router.get('/:id', function(req, res) {
 
 // add an item to the master menu
 router.post('/', function(req, res) {
-    console.log("hit menu post")
-    queryUtil.query("INSERT INTO hotdog VALUES" + "(NULL, \'" + req.body.hotdog_name + "\', \'" + req.body.hotdog_image + "\', " + req.body.hotdog_price + ")")
+    queryUtil.query("INSERT INTO hotdog VALUES" + "(NULL, \'" + req.body.hotdog_name + "\', \'" + req.body.hotdog_image + "\', " + req.body.hotdog_price + ", false)")
     .catch(err => console.log("error inserting vendor " + err))
     .finally(res.send("Menu item added successfully"));
 });

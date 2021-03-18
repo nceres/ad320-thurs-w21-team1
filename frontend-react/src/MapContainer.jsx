@@ -18,7 +18,6 @@ class MapContainer extends React.Component {
     };
 
     showModal = () => {
-        console.log("showmodal executed")
         this.setState({showingModal: !this.state.showingModal})
     }
 
@@ -28,7 +27,6 @@ class MapContainer extends React.Component {
             selectedVendor: props,
             showingInfoWindow: true,
         })
-        console.log(this.state.selectedVendor)
     };
 
 
