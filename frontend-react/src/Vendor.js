@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Form, Nav, Button} from 'react-bootstrap';
 import OrdersTable from './ordersTable';
+import VendorAvailability from './VendorAvailability';
 import logHelper from './utils'
 
 class Vendor extends React.Component {
@@ -53,7 +54,7 @@ class Vendor extends React.Component {
         }).then(result => result.json())
     }
 
-
+    
     render() {
         return (
             <div>
@@ -61,9 +62,11 @@ class Vendor extends React.Component {
                     <Nav.Link eventKey={1} onSelect={this.handleSelect}>Orders</Nav.Link>
                     <Nav.Link eventKey={2} onSelect={this.handleSelect}>Update Location</Nav.Link>
                     <Nav.Link eventKey={3} onSelect={this.handleSelect}>Update Menu</Nav.Link>
+                    <Nav.Link eventKey={4} onSelect={this.handleSelect}>Update Vendor Availability</Nav.Link>
                 </Nav>
                 {this.state.tabKey === "1" && <OrdersTable/>}
                 {this.state.tabKey === "2" && this.showUpdateLocationForm()}
+                {this.state.tabKey === "4" && <VendorAvailability user={this.props.user}/>}
             </div>
         )
     }
