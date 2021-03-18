@@ -13,12 +13,28 @@ router.get('/', function (req, res) {
         .then(result => res.send(result));
 });
 
+// get order items
+router.get('/order_items', function (req, res) {
+    const order_id = req.body.order_id;
+    queryUtil.query("select distinct hotdog_name, quantity from hotdogcart.order_items join hotdogcart.customer_order using(order_id) join hotdogcart.hotdog using(hotdog_id) where order_id = " + order_id)
+        .then(result => res.send(result));
+}
+);
+
+router.get('/:id/order_items', function (req, res) {
+    const order_id = req.params.id;
+    queryUtil.query("select distinct hotdog_name as 'Name', quantity as 'Quantity', hotdog_price as 'Price' from hotdogcart.order_items join hotdogcart.customer_order using(order_id) join hotdogcart.hotdog using(hotdog_id) where order_id = " + order_id)
+        .then(result => res.send(result));
+}
+);
+
 // change order status
 router.post('/change_status', async (req, res) => {
     const order_id = req.body.order_id;
     console.log(`req ${JSON.stringify(req.body)}`)
     await queryUtil.query("UPDATE hotdogcart.customer_order SET complete = not complete WHERE order_id = " + parseInt(order_id));
-    const result = await queryUtil.query("SELECT * FROM Customer_Order WHERE order_id = " + parseInt(order_id));
+
+    const result = await queryUtil.query("SELECT order_id, DATE_FORMAT(date, '%M %d %Y %H-%m-%s') AS 'Date', location.name as 'Location', CONCAT(person.first_name, ' ', last_name) as 'Name', case complete when 0 then 'processing' else 'complete' end as 'Status' FROM hotdogcart.Customer_Order inner join hotdogcart.location using (location_id) inner join hotdogcart.person using (person_id)");
     res.send(result);
 });
 
