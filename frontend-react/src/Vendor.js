@@ -64,7 +64,7 @@ class Vendor extends React.Component {
                     <Nav.Link eventKey={4} onSelect={this.handleSelect}>Update Vendor Availability</Nav.Link>
                 </Nav>
                 {this.state.tabKey === "1" && <OrdersTable/>}
-                {this.state.tabKey === "4" && <VendorAvailability/>}
+                {this.state.tabKey === "4" && <VendorAvailability user={this.props.user}/>}
                 {this.state.tabKey === "2" && this.showUpdateLocationForm()}
             </div>
         )

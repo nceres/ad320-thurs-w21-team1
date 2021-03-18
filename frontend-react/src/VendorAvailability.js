@@ -1,14 +1,29 @@
 import React, { Component } from 'react';
-
+import {Form} from "react-bootstrap";
+import logHelper from "./utils";
 class ToggleSwitch extends Component {
+    constructor(props) {
+        super(props);
+    }
+    markUnavailable = () => {
+        logHelper({logline:"Vendor marked self unavailable"})
+        console.log(this.props.user.person_id)
+    }
     render() {
         return (
             <div className="toggle-switch">
-                <input type="checkbox" checked data-toggle="toggle" data-on="Ready" data-off="Not Ready" data-onstyle="success" data-offstyle="danger" />
-
+                {this.props.user.person_id}
+                <Form>
+                        <Form.Check
+                            onChange={() => this.markUnavailable()}
+                            type="switch"
+                            id={"id"}
+                            label={"Switch the toggle off to make yourself unavailable"}
+                            key={"toggle"}
+                        />
+                </Form>
             </div>
         );
     }
 }
-
 export default ToggleSwitch;
