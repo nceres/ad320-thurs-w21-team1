@@ -68,6 +68,7 @@ CREATE TABLE IF NOT EXISTS `HotdogCart`.`Person` (
   `email` VARCHAR(45) NULL COMMENT 'customer email',
   `phone` VARCHAR(12) NULL COMMENT 'customer phone',
   `location_id` INT NULL,
+  `availability` BOOLEAN NULL COMMENT 'customer availability',
   `role_id` INT NULL,
   `hashed_password` VARCHAR(45) NULL,
   PRIMARY KEY (`person_id`),
@@ -245,17 +246,17 @@ INSERT INTO Person_Role VALUES (NULL, "Vendor");
 INSERT INTO Person_Role VALUES (NULL, "Admin");
 
 # Person table
-INSERT INTO Person VALUES (NULL, "John", "Pfiser", "321 36th Pl NE, Seattle", "johnp@comcast.net", "425-733-9024", "5", 1, "password");
-INSERT INTO Person VALUES (NULL, "Michael", "Ashford", "10312 Aurora Ave N, Seattle", "mash@oreilly.com", "206-321-7656", "2", 2, "password");
-INSERT INTO Person VALUES (NULL, "Helen", "Hunt", "1301 4th Ave, Seattle", "hunt@yahoo.com", "509-120-2012", "1", 1, "password");
-INSERT INTO Person VALUES (NULL, "Aaron", "Schwartz", "1498 253rd St, Burien", "AShcwartz@gmail.com", "253-034-1414", "5", 1, "password");
-INSERT INTO Person VALUES (NULL, "Sam", "Zimbabwe", "1104 15th Ave N, Shoreline", "SZ@wsdot.wa.gov", "206-457-4000", "3", 1, "password");
-INSERT INTO Person VALUES (NULL, "Crystal", "Broderick", "208 Main St, Bellevue", "broderick@hotmail.com", "425-900-2348", "4", 3, "password");
-INSERT INTO Person VALUES (NULL, "Marty", "Sheen", "2223 6th Ave W, Seattle", "msheen@gmailcom", "206-399-7602", "1", 1, "password");
-INSERT INTO Person VALUES (NULL, "Lesly", "Blunt", "11343 256th Ave Sw, Kent", "lblunt@outlook.com", "253-113-1003", "4", 2, "password");
-INSERT INTO Person VALUES (NULL, "Nathaniel", "Piletski", "1601 5th Ave N Seattle", "npiletski@mail.com", "206-885-9008", "1", 1, "password");
-INSERT INTO Person VALUES (NULL, "Cathy", "Noel", "11061 248th Ave NE, Redmond", "cnoel@gmail.com", "425-733-9024", "5", 3, "password");
-INSERT INTO Person VALUES (NULL, "my", "admin", "11061 248th Ave NE, Redmond", "dogeatadmin@gmail.com", "425-733-9024", "3", 3, "password");
+INSERT INTO Person VALUES (NULL, "John", "Pfiser", "321 36th Pl NE, Seattle", "johnp@comcast.net", "425-733-9024", "5", true, 1, "password");
+INSERT INTO Person VALUES (NULL, "Michael", "Ashford", "10312 Aurora Ave N, Seattle", "mash@oreilly.com", "206-321-7656","2",true, 2, "password");
+INSERT INTO Person VALUES (NULL, "Helen", "Hunt", "1301 4th Ave, Seattle", "hunt@yahoo.com", "509-120-2012", "1", true, 1, "password");
+INSERT INTO Person VALUES (NULL, "Aaron", "Schwartz", "1498 253rd St, Burien", "AShcwartz@gmail.com", "253-034-1414", "5", true, 1, "password");
+INSERT INTO Person VALUES (NULL, "Sam", "Zimbabwe", "1104 15th Ave N, Shoreline", "SZ@wsdot.wa.gov", "206-457-4000", "3", true, 1, "password");
+INSERT INTO Person VALUES (NULL, "Crystal", "Broderick", "208 Main St, Bellevue", "broderick@hotmail.com", "425-900-2348", "4", true, 3, "password");
+INSERT INTO Person VALUES (NULL, "Marty", "Sheen", "2223 6th Ave W, Seattle", "msheen@gmailcom", "206-399-7602", "1", true, 1, "password");
+INSERT INTO Person VALUES (NULL, "Lesly", "Blunt", "11343 256th Ave Sw, Kent", "lblunt@outlook.com", "253-113-1003", "4", true, 2, "password");
+INSERT INTO Person VALUES (NULL, "Nathaniel", "Piletski", "1601 5th Ave N Seattle", "npiletski@mail.com", "206-885-9008", "1", true, 1, "password");
+INSERT INTO Person VALUES (NULL, "Cathy", "Noel", "11061 248th Ave NE, Redmond", "cnoel@gmail.com", "425-733-9024", "5", true, 3, "password");
+INSERT INTO Person VALUES (NULL, "my", "admin", "11061 248th Ave NE, Redmond", "dogeatadmin@gmail.com", "425-733-9024", "3",  true, 3, "password");
 
 
 # Permission table
