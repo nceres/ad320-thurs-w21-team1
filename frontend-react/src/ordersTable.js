@@ -76,6 +76,7 @@ class OrdersTable extends React.Component {
         return (
             <div>
 
+
                 {this.state.orderItems &&
                     <Modal show={this.state.orderItems !== null} onHide={this.onHideOrderItems.bind(this)}>
                         <Modal.Header closeButton>
@@ -89,9 +90,10 @@ class OrdersTable extends React.Component {
                                 <tr>
                                     <td>Name</td><td>Quantity</td><td>Price</td><td>Total Cost</td>
                                 </tr>
-
+                                {this.totalCost = 0}
                                 {this.state.orderItems.map(orderItem => (
                                     this.cost = (orderItem.Price * orderItem.Quantity),
+                                    this.totalCost += this.cost,
 
                                     <tr>
                                         <td>{orderItem.Name}</td>
@@ -99,11 +101,16 @@ class OrdersTable extends React.Component {
                                         <td>{orderItem.Price}</td>
                                         <td>{this.cost}</td>
 
+
                                     </tr>
                                 ))}
 
 
                             </table>
+                            <br></br>
+                            <h1><b>Final Price: ${this.totalCost}</b></h1>
+
+
 
                         </Modal.Body>
 
