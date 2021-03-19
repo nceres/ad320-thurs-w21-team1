@@ -84,17 +84,16 @@ class OrdersTable extends React.Component {
                         </Modal.Header>
 
                         <Modal.Body>
-                     
+
 
                             <table>
                                 <p className="Table-header">ORDER'S ITEMS</p>
                                 <tr>
                                     <td>Name</td><td>Quantity</td><td>Price</td><td>Total Cost</td>
                                 </tr>
-                                
+                                {this.totalCost = 0}.hide()
                                 {this.state.orderItems.map(orderItem => (
                                     this.cost = (orderItem.Price * orderItem.Quantity),
-                                    this.totalCost = 0,
                                     this.totalCost += this.cost,
 
                                     <tr>
