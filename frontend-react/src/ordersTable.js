@@ -91,7 +91,7 @@ class OrdersTable extends React.Component {
                                 <tr>
                                     <td>Name</td><td>Quantity</td><td>Price</td><td>Total Cost</td>
                                 </tr>
-                                {this.totalCost = 0}.hide()
+                                <p hidden>{this.totalCost = 0}</p>
                                 {this.state.orderItems.map(orderItem => (
                                     this.cost = (orderItem.Price * orderItem.Quantity),
                                     this.totalCost += this.cost,
